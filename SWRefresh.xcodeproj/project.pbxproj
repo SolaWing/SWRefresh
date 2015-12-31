@@ -7,9 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		217499251C34D6D500399768 /* SWRefresh.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 217499241C34D6D500399768 /* SWRefresh.h */; };
-		217499271C34D6D500399768 /* SWRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 217499261C34D6D500399768 /* SWRefresh.m */; };
+		217499351C34D6EF00399768 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 217499341C34D6EF00399768 /* main.m */; };
+		217499381C34D6EF00399768 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 217499371C34D6EF00399768 /* AppDelegate.m */; };
+		2174993B1C34D6EF00399768 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2174993A1C34D6EF00399768 /* ViewController.m */; };
+		2174993E1C34D6EF00399768 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2174993C1C34D6EF00399768 /* Main.storyboard */; };
+		217499401C34D6EF00399768 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2174993F1C34D6EF00399768 /* Assets.xcassets */; };
+		217499431C34D6EF00399768 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 217499411C34D6EF00399768 /* LaunchScreen.storyboard */; };
+		2174994A1C34D70100399768 /* libSWRefresh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 217499211C34D6D500399768 /* libSWRefresh.a */; };
+		2174994D1C34D74600399768 /* SWRefreshViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2174994C1C34D74600399768 /* SWRefreshViewModel.m */; };
+		217499501C35030000399768 /* SWRefreshHeaderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2174994F1C35030000399768 /* SWRefreshHeaderViewModel.m */; };
+		217499541C351EB000399768 /* SWRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 217499531C351EB000399768 /* SWRefreshView.m */; };
+		217499571C351FC600399768 /* SWRefreshFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 217499561C351FC600399768 /* SWRefreshFooterViewModel.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		217499481C34D6FD00399768 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 217499191C34D6D500399768 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 217499201C34D6D500399768;
+			remoteInfo = SWRefresh;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		2174991F1C34D6D500399768 /* CopyFiles */ = {
@@ -18,7 +37,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				217499251C34D6D500399768 /* SWRefresh.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -26,8 +44,24 @@
 
 /* Begin PBXFileReference section */
 		217499211C34D6D500399768 /* libSWRefresh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSWRefresh.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		217499241C34D6D500399768 /* SWRefresh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWRefresh.h; sourceTree = "<group>"; };
-		217499261C34D6D500399768 /* SWRefresh.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SWRefresh.m; sourceTree = "<group>"; };
+		217499311C34D6EF00399768 /* SWRefreshExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SWRefreshExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		217499341C34D6EF00399768 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		217499361C34D6EF00399768 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		217499371C34D6EF00399768 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		217499391C34D6EF00399768 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		2174993A1C34D6EF00399768 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		2174993D1C34D6EF00399768 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2174993F1C34D6EF00399768 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		217499421C34D6EF00399768 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		217499441C34D6EF00399768 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2174994B1C34D74600399768 /* SWRefreshViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshViewModel.h; sourceTree = "<group>"; };
+		2174994C1C34D74600399768 /* SWRefreshViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshViewModel.m; sourceTree = "<group>"; };
+		2174994E1C35030000399768 /* SWRefreshHeaderViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshHeaderViewModel.h; sourceTree = "<group>"; };
+		2174994F1C35030000399768 /* SWRefreshHeaderViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshHeaderViewModel.m; sourceTree = "<group>"; };
+		217499521C351EB000399768 /* SWRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshView.h; sourceTree = "<group>"; };
+		217499531C351EB000399768 /* SWRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshView.m; sourceTree = "<group>"; };
+		217499551C351FC600399768 /* SWRefreshFooterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshFooterViewModel.h; sourceTree = "<group>"; };
+		217499561C351FC600399768 /* SWRefreshFooterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshFooterViewModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +72,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2174992E1C34D6EF00399768 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2174994A1C34D70100399768 /* libSWRefresh.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -45,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				217499231C34D6D500399768 /* SWRefresh */,
+				217499321C34D6EF00399768 /* SWRefreshExample */,
 				217499221C34D6D500399768 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				217499211C34D6D500399768 /* libSWRefresh.a */,
+				217499311C34D6EF00399768 /* SWRefreshExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,10 +104,48 @@
 		217499231C34D6D500399768 /* SWRefresh */ = {
 			isa = PBXGroup;
 			children = (
-				217499241C34D6D500399768 /* SWRefresh.h */,
-				217499261C34D6D500399768 /* SWRefresh.m */,
+				217499511C351E4E00399768 /* ViewModel */,
+				217499521C351EB000399768 /* SWRefreshView.h */,
+				217499531C351EB000399768 /* SWRefreshView.m */,
 			);
 			path = SWRefresh;
+			sourceTree = "<group>";
+		};
+		217499321C34D6EF00399768 /* SWRefreshExample */ = {
+			isa = PBXGroup;
+			children = (
+				217499361C34D6EF00399768 /* AppDelegate.h */,
+				217499371C34D6EF00399768 /* AppDelegate.m */,
+				217499391C34D6EF00399768 /* ViewController.h */,
+				2174993A1C34D6EF00399768 /* ViewController.m */,
+				2174993C1C34D6EF00399768 /* Main.storyboard */,
+				2174993F1C34D6EF00399768 /* Assets.xcassets */,
+				217499411C34D6EF00399768 /* LaunchScreen.storyboard */,
+				217499441C34D6EF00399768 /* Info.plist */,
+				217499331C34D6EF00399768 /* Supporting Files */,
+			);
+			path = SWRefreshExample;
+			sourceTree = "<group>";
+		};
+		217499331C34D6EF00399768 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				217499341C34D6EF00399768 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		217499511C351E4E00399768 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2174994B1C34D74600399768 /* SWRefreshViewModel.h */,
+				2174994C1C34D74600399768 /* SWRefreshViewModel.m */,
+				2174994E1C35030000399768 /* SWRefreshHeaderViewModel.h */,
+				2174994F1C35030000399768 /* SWRefreshHeaderViewModel.m */,
+				217499551C351FC600399768 /* SWRefreshFooterViewModel.h */,
+				217499561C351FC600399768 /* SWRefreshFooterViewModel.m */,
+			);
+			name = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,6 +168,24 @@
 			productReference = 217499211C34D6D500399768 /* libSWRefresh.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		217499301C34D6EF00399768 /* SWRefreshExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 217499451C34D6EF00399768 /* Build configuration list for PBXNativeTarget "SWRefreshExample" */;
+			buildPhases = (
+				2174992D1C34D6EF00399768 /* Sources */,
+				2174992E1C34D6EF00399768 /* Frameworks */,
+				2174992F1C34D6EF00399768 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				217499491C34D6FD00399768 /* PBXTargetDependency */,
+			);
+			name = SWRefreshExample;
+			productName = SWRefreshExample;
+			productReference = 217499311C34D6EF00399768 /* SWRefreshExample.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -98,6 +198,10 @@
 					217499201C34D6D500399768 = {
 						CreatedOnToolsVersion = 7.1.1;
 					};
+					217499301C34D6EF00399768 = {
+						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = 75W5JUH3AF;
+					};
 				};
 			};
 			buildConfigurationList = 2174991C1C34D6D500399768 /* Build configuration list for PBXProject "SWRefresh" */;
@@ -106,6 +210,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 217499181C34D6D500399768;
 			productRefGroup = 217499221C34D6D500399768 /* Products */;
@@ -113,20 +218,74 @@
 			projectRoot = "";
 			targets = (
 				217499201C34D6D500399768 /* SWRefresh */,
+				217499301C34D6EF00399768 /* SWRefreshExample */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2174992F1C34D6EF00399768 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				217499431C34D6EF00399768 /* LaunchScreen.storyboard in Resources */,
+				217499401C34D6EF00399768 /* Assets.xcassets in Resources */,
+				2174993E1C34D6EF00399768 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2174991D1C34D6D500399768 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				217499271C34D6D500399768 /* SWRefresh.m in Sources */,
+				2174994D1C34D74600399768 /* SWRefreshViewModel.m in Sources */,
+				217499571C351FC600399768 /* SWRefreshFooterViewModel.m in Sources */,
+				217499541C351EB000399768 /* SWRefreshView.m in Sources */,
+				217499501C35030000399768 /* SWRefreshHeaderViewModel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2174992D1C34D6EF00399768 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2174993B1C34D6EF00399768 /* ViewController.m in Sources */,
+				217499381C34D6EF00399768 /* AppDelegate.m in Sources */,
+				217499351C34D6EF00399768 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		217499491C34D6FD00399768 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 217499201C34D6D500399768 /* SWRefresh */;
+			targetProxy = 217499481C34D6FD00399768 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2174993C1C34D6EF00399768 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2174993D1C34D6EF00399768 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		217499411C34D6EF00399768 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				217499421C34D6EF00399768 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		217499281C34D6D500399768 /* Debug */ = {
@@ -168,6 +327,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -204,6 +364,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -227,6 +388,28 @@
 			};
 			name = Release;
 		};
+		217499461C34D6EF00399768 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SWRefreshExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = SW.SWRefreshExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		217499471C34D6EF00399768 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SWRefreshExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = SW.SWRefreshExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -244,6 +427,14 @@
 			buildConfigurations = (
 				2174992B1C34D6D500399768 /* Debug */,
 				2174992C1C34D6D500399768 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		217499451C34D6EF00399768 /* Build configuration list for PBXNativeTarget "SWRefreshExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				217499461C34D6EF00399768 /* Debug */,
+				217499471C34D6EF00399768 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

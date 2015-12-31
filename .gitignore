@@ -1,0 +1,4 @@
+.DS_Store
+xcuserdata/
+.ycm_extra_conf.py
+*.pyc

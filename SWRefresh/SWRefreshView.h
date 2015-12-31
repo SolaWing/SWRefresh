@@ -1,13 +1,13 @@
 //
-//  SWRefresh.h
+//  SWRefreshView.h
 //  SWRefresh
 //
 //  Created by SolaWing on 15/12/31.
 //  Copyright © 2015年 SW. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface SWRefresh : NSObject
+@interface SWRefreshView : UIView
 
 @end

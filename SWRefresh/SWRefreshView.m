@@ -1,13 +1,13 @@
 //
-//  SWRefresh.m
+//  SWRefreshView.m
 //  SWRefresh
 //
 //  Created by SolaWing on 15/12/31.
 //  Copyright © 2015年 SW. All rights reserved.
 //
 
-#import "SWRefresh.h"
+#import "SWRefreshView.h"
 
-@implementation SWRefresh
+@implementation SWRefreshView
 
 @end

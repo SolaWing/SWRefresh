@@ -44,7 +44,7 @@
             if (offset.y > pullingOffsetY) { self.state = SWRefreshStateIdle; }
         }
     } else if (self.state == SWRefreshStatePulling) { // pulling状态下松开
-        [self beginRefreshing:NO];
+        [self beginRefreshing:YES];
     } else if (pullingPercent < 1) {
         self.pullingPercent = pullingPercent;
     }

@@ -18,6 +18,10 @@
 		217499501C35030000399768 /* SWRefreshHeaderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2174994F1C35030000399768 /* SWRefreshHeaderViewModel.m */; };
 		217499541C351EB000399768 /* SWRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 217499531C351EB000399768 /* SWRefreshView.m */; };
 		217499571C351FC600399768 /* SWRefreshFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 217499561C351FC600399768 /* SWRefreshFooterViewModel.m */; };
+		2175B1061C356D770089C6D3 /* SWRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2175B1051C356D770089C6D3 /* SWRefresh.m */; };
+		2175B1091C356E9F0089C6D3 /* UIScrollView+SWRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2175B1081C356E9F0089C6D3 /* UIScrollView+SWRefresh.m */; };
+		217ED0FE1C361B9400B9BEB1 /* SWRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 217ED0FD1C361B9400B9BEB1 /* SWRefreshHeaderView.m */; };
+		217ED1011C361BA600B9BEB1 /* SWRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 217ED1001C361BA600B9BEB1 /* SWRefreshFooterView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +66,14 @@
 		217499531C351EB000399768 /* SWRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshView.m; sourceTree = "<group>"; };
 		217499551C351FC600399768 /* SWRefreshFooterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshFooterViewModel.h; sourceTree = "<group>"; };
 		217499561C351FC600399768 /* SWRefreshFooterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshFooterViewModel.m; sourceTree = "<group>"; };
+		2175B1041C356D770089C6D3 /* SWRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefresh.h; sourceTree = "<group>"; };
+		2175B1051C356D770089C6D3 /* SWRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefresh.m; sourceTree = "<group>"; };
+		2175B1071C356E9F0089C6D3 /* UIScrollView+SWRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SWRefresh.h"; sourceTree = "<group>"; };
+		2175B1081C356E9F0089C6D3 /* UIScrollView+SWRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SWRefresh.m"; sourceTree = "<group>"; };
+		217ED0FC1C361B9400B9BEB1 /* SWRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshHeaderView.h; sourceTree = "<group>"; };
+		217ED0FD1C361B9400B9BEB1 /* SWRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshHeaderView.m; sourceTree = "<group>"; };
+		217ED0FF1C361BA600B9BEB1 /* SWRefreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshFooterView.h; sourceTree = "<group>"; };
+		217ED1001C361BA600B9BEB1 /* SWRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshFooterView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +117,9 @@
 			isa = PBXGroup;
 			children = (
 				217499511C351E4E00399768 /* ViewModel */,
-				217499521C351EB000399768 /* SWRefreshView.h */,
-				217499531C351EB000399768 /* SWRefreshView.m */,
+				217ED0FB1C360EB000B9BEB1 /* View */,
+				2175B1071C356E9F0089C6D3 /* UIScrollView+SWRefresh.h */,
+				2175B1081C356E9F0089C6D3 /* UIScrollView+SWRefresh.m */,
 			);
 			path = SWRefresh;
 			sourceTree = "<group>";
@@ -138,6 +151,8 @@
 		217499511C351E4E00399768 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				2175B1041C356D770089C6D3 /* SWRefresh.h */,
+				2175B1051C356D770089C6D3 /* SWRefresh.m */,
 				2174994B1C34D74600399768 /* SWRefreshViewModel.h */,
 				2174994C1C34D74600399768 /* SWRefreshViewModel.m */,
 				2174994E1C35030000399768 /* SWRefreshHeaderViewModel.h */,
@@ -146,6 +161,19 @@
 				217499561C351FC600399768 /* SWRefreshFooterViewModel.m */,
 			);
 			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		217ED0FB1C360EB000B9BEB1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				217499521C351EB000399768 /* SWRefreshView.h */,
+				217499531C351EB000399768 /* SWRefreshView.m */,
+				217ED0FC1C361B9400B9BEB1 /* SWRefreshHeaderView.h */,
+				217ED0FD1C361B9400B9BEB1 /* SWRefreshHeaderView.m */,
+				217ED0FF1C361BA600B9BEB1 /* SWRefreshFooterView.h */,
+				217ED1001C361BA600B9BEB1 /* SWRefreshFooterView.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,9 +270,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2174994D1C34D74600399768 /* SWRefreshViewModel.m in Sources */,
+				2175B1061C356D770089C6D3 /* SWRefresh.m in Sources */,
 				217499571C351FC600399768 /* SWRefreshFooterViewModel.m in Sources */,
+				217ED1011C361BA600B9BEB1 /* SWRefreshFooterView.m in Sources */,
 				217499541C351EB000399768 /* SWRefreshView.m in Sources */,
 				217499501C35030000399768 /* SWRefreshHeaderViewModel.m in Sources */,
+				2175B1091C356E9F0089C6D3 /* UIScrollView+SWRefresh.m in Sources */,
+				217ED0FE1C361B9400B9BEB1 /* SWRefreshHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,7 +356,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -362,7 +394,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
@@ -429,6 +461,7 @@
 				2174992C1C34D6D500399768 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		217499451C34D6EF00399768 /* Build configuration list for PBXNativeTarget "SWRefreshExample" */ = {
 			isa = XCConfigurationList;
@@ -437,6 +470,7 @@
 				217499471C34D6EF00399768 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

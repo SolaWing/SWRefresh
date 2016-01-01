@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SWRefreshViewModel.h"
 
-@interface SWRefreshView : UIView
+@interface SWRefreshView : UIView <SWRefreshView>
+
+@property (nonatomic, strong) SWRefreshViewModel* sourceViewModel;
+
+#pragma mark   Override method
+- (void)changePullingPercent:(CGFloat)pullingPercent;
+- (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState;
 
 @end

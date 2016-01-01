@@ -12,4 +12,8 @@
 
 @property (nonatomic, assign) CGFloat refreshThreshold; ///< amout scrollView need to beyond
 
+/** 结束刷新状态 */
+- (void)endRefreshingWithNoMoreData:(BOOL)animated;
+- (void)resetNoMoreData;
+
 @end

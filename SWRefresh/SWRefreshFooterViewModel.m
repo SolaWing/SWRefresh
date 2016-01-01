@@ -10,6 +10,23 @@
 
 @implementation SWRefreshFooterViewModel
 
+- (void)endRefreshingWithNoMoreData:(BOOL)animated {
+    __unsafe_unretained dispatch_block_t block = ^{
+        self.state = SWRefreshStateNoMoreData;
+        self.pullingPercent = 0.0;
+    };
+
+    if (animated) {
+        [UIView animateWithDuration:0.25 animations:block];
+    } else {
+        block();
+    }
+}
+
+- (void)resetNoMoreData {
+    self.state = SWRefreshStateIdle;
+}
+
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {
     CGPoint offset = self.scrollView.contentOffset;
     if (self.state == SWRefreshStateRefreshing) {
@@ -45,7 +62,7 @@
             if (offset.y < pullingOffsetY) { self.state = SWRefreshStateIdle; }
         }
     } else if (self.state == SWRefreshStatePulling) { // pulling状态下松开
-        [self beginRefreshing:NO];
+        [self beginRefreshing:YES];
     } else if (pullingPercent < 1) {
         self.pullingPercent = pullingPercent;
     }
@@ -54,7 +71,7 @@
 - (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState {
     NSAssert([NSThread isMainThread], @"should change state in main thread!");
 
-    if (newState == SWRefreshStateIdle) {
+    if (newState == SWRefreshStateIdle || newState == SWRefreshStateNoMoreData) {
         if (oldState == SWRefreshStateRefreshing) {
             // 恢复inset, 只更改bottom
             UIEdgeInsets inset = self.scrollView.contentInset;

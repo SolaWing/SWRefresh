@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
     UIEdgeInsets _scrollViewOriginInsets;
 }
 
+/** 使用assign确保deallocing时, scrollView仍然有效 */
 @property (nonatomic, assign) UIScrollView* scrollView;
 @property (nonatomic, assign) UIEdgeInsets scrollViewOriginInsets;
 
@@ -55,5 +56,12 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 - (void)initialize  NS_REQUIRES_SUPER;
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change;
 - (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState;
+
+@end
+
+@protocol SWRefreshView
+
+@required
+@property (nonatomic, strong) SWRefreshViewModel* sourceViewModel;
 
 @end

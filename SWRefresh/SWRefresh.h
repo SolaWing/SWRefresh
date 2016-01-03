@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "SWRefreshHeaderViewModel.h"
-#import "SWRefreshFooterViewModel.h"
+#import "SWRefreshBackFooterViewModel.h"
+#import "SWRefreshAutoFooterViewModel.h"
 #import "SWRefreshView.h"
 
 @interface SWRefresh : NSObject

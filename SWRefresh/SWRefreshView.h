@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "SWRefreshViewModel.h"
 
-@interface SWRefreshView : UIView <SWRefreshView>
+@interface SWRefreshView : UIView <SWRefreshView>{
+    SWRefreshViewModel* _sourceViewModel;
+}
 
 + (Class)defaultHeaderViewModelClass;
 + (Class)defaultFooterViewModelClass;

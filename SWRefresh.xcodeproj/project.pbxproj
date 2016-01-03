@@ -22,6 +22,8 @@
 		2175B1091C356E9F0089C6D3 /* UIScrollView+SWRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2175B1081C356E9F0089C6D3 /* UIScrollView+SWRefresh.m */; };
 		217ED0FE1C361B9400B9BEB1 /* SWRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 217ED0FD1C361B9400B9BEB1 /* SWRefreshHeaderView.m */; };
 		217ED1011C361BA600B9BEB1 /* SWRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 217ED1001C361BA600B9BEB1 /* SWRefreshFooterView.m */; };
+		219483F61C39144100F4C27D /* SWRefreshBackFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 219483F51C39144100F4C27D /* SWRefreshBackFooterViewModel.m */; };
+		219483F91C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 219483F81C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,10 @@
 		217ED0FD1C361B9400B9BEB1 /* SWRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshHeaderView.m; sourceTree = "<group>"; };
 		217ED0FF1C361BA600B9BEB1 /* SWRefreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshFooterView.h; sourceTree = "<group>"; };
 		217ED1001C361BA600B9BEB1 /* SWRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshFooterView.m; sourceTree = "<group>"; };
+		219483F41C39144100F4C27D /* SWRefreshBackFooterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshBackFooterViewModel.h; sourceTree = "<group>"; };
+		219483F51C39144100F4C27D /* SWRefreshBackFooterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshBackFooterViewModel.m; sourceTree = "<group>"; };
+		219483F71C39159B00F4C27D /* SWRefreshAutoFooterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshAutoFooterViewModel.h; sourceTree = "<group>"; };
+		219483F81C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshAutoFooterViewModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +165,10 @@
 				2174994F1C35030000399768 /* SWRefreshHeaderViewModel.m */,
 				217499551C351FC600399768 /* SWRefreshFooterViewModel.h */,
 				217499561C351FC600399768 /* SWRefreshFooterViewModel.m */,
+				219483F41C39144100F4C27D /* SWRefreshBackFooterViewModel.h */,
+				219483F51C39144100F4C27D /* SWRefreshBackFooterViewModel.m */,
+				219483F71C39159B00F4C27D /* SWRefreshAutoFooterViewModel.h */,
+				219483F81C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -273,6 +283,8 @@
 				2175B1061C356D770089C6D3 /* SWRefresh.m in Sources */,
 				217499571C351FC600399768 /* SWRefreshFooterViewModel.m in Sources */,
 				217ED1011C361BA600B9BEB1 /* SWRefreshFooterView.m in Sources */,
+				219483F91C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m in Sources */,
+				219483F61C39144100F4C27D /* SWRefreshBackFooterViewModel.m in Sources */,
 				217499541C351EB000399768 /* SWRefreshView.m in Sources */,
 				217499501C35030000399768 /* SWRefreshHeaderViewModel.m in Sources */,
 				2175B1091C356E9F0089C6D3 /* UIScrollView+SWRefresh.m in Sources */,

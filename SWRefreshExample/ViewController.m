@@ -11,6 +11,7 @@
 #import "SWRefresh.h"
 #import "SWRefreshHeaderView.h"
 #import "SWRefreshFooterView.h"
+#import "SWRefreshBackFooterViewModel.h"
 
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -29,7 +30,7 @@
     self.automaticallyAdjustsScrollViewInsets = YES;
 
     [UIScrollView registerDefaultHeaderView:[SWRefreshHeaderView class] andModel:[SWRefreshHeaderViewModel class]];
-    [UIScrollView registerDefaultFooterView:[SWRefreshFooterView class] andModel:[SWRefreshFooterViewModel class]];
+    [UIScrollView registerDefaultFooterView:[SWRefreshFooterView class] andModel:[SWRefreshBackFooterViewModel class]];
     // Do any additional setup after loading the view, typically from a nib.
     UITableView* tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     tableView.dataSource = self;

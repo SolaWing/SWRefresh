@@ -98,11 +98,11 @@
 - (void)setScrollView:(UIScrollView *)scrollView {
     if (scrollView != _scrollView) {
         if (_scrollView) {
-            [self removeScrollViewObservers:_scrollView];
+            [self unbindScrollView:_scrollView];
         }
         _scrollView = scrollView;
         if (_scrollView) {
-            [self addScrollViewObservers:_scrollView];
+            [self bindScrollView:_scrollView];
         }
     }
 }
@@ -118,13 +118,13 @@
 
 #pragma mark - KVO
 
-- (void)addScrollViewObservers:(UIScrollView*)scrollView {
+- (void)bindScrollView:(UIScrollView*)scrollView {
     _scrollViewOriginInsets = scrollView.contentInset;
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
     [scrollView addObserver:self forKeyPath:@"contentOffset" options:options context:@"contentOffset"];
 }
 
-- (void)removeScrollViewObservers:(UIScrollView*)scrollView {
+- (void)unbindScrollView:(UIScrollView*)scrollView {
     [scrollView removeObserver:self forKeyPath:@"contentOffset"];
 }
 

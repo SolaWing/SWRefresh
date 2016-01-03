@@ -8,6 +8,7 @@
 
 #import "SWRefreshView.h"
 
+/** example default header view */
 @interface SWRefreshHeaderView : SWRefreshView
 
 @end

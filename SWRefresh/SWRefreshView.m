@@ -7,12 +7,60 @@
 //
 
 #import "SWRefreshView.h"
+#import "SWRefreshHeaderViewModel.h"
+#import "SWRefreshFooterViewModel.h"
 
 @implementation SWRefreshView
 
 - (void)dealloc {
     self.sourceViewModel = nil;
 }
+
++ (Class)defaultHeaderViewModelClass { return [SWRefreshHeaderViewModel class]; }
++ (Class)defaultFooterViewModelClass { return [SWRefreshFooterViewModel class]; }
+
++ (instancetype)headerWithRefreshingBlock:(dispatch_block_t)block {
+    SWRefreshView* headerView = [self new];
+    SWRefreshHeaderViewModel* headerModel = [[self defaultHeaderViewModelClass] new];
+    headerModel.refreshThreshold = headerView.frame.size.height;
+    headerModel.refreshingBlock = block;
+
+    headerView.sourceViewModel = headerModel;
+    return headerView;
+}
+
++ (instancetype)headerWithRefreshingTarget:(id)target action:(SEL)action {
+    SWRefreshView* headerView = [self new];
+    SWRefreshHeaderViewModel* headerModel = [[self defaultHeaderViewModelClass] new];
+    headerModel.refreshThreshold = headerView.frame.size.height;
+    headerModel.refreshTarget = target;
+    headerModel.refreshAction = action;
+
+    headerView.sourceViewModel = headerModel;
+    return headerView;
+}
+
++ (instancetype)footerWithRefreshingBlock:(dispatch_block_t)block {
+    SWRefreshView* footerView = [self new];
+    SWRefreshFooterViewModel* footerModel = [[self defaultFooterViewModelClass] new];
+    footerModel.refreshThreshold = footerView.frame.size.height;
+    footerModel.refreshingBlock = block;
+
+    footerView.sourceViewModel = footerModel;
+    return footerView;
+}
+
++ (instancetype)footerWithRefreshingTarget:(id)target action:(SEL)action {
+    SWRefreshView* footerView = [self new];
+    SWRefreshFooterViewModel* footerModel = [[self defaultFooterViewModelClass] new];
+    footerModel.refreshThreshold = footerView.frame.size.height;
+    footerModel.refreshTarget = target;
+    footerModel.refreshAction = action;
+
+    footerView.sourceViewModel = footerModel;
+    return footerView;
+}
+
 
 - (void)setSourceViewModel:(SWRefreshViewModel *)sourceViewModel {
     if (_sourceViewModel != sourceViewModel) {

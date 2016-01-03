@@ -11,6 +11,15 @@
 
 @interface SWRefreshView : UIView <SWRefreshView>
 
++ (Class)defaultHeaderViewModelClass;
++ (Class)defaultFooterViewModelClass;
+
+/** one shot for create view and ViewModel and bind them */
++ (instancetype)headerWithRefreshingBlock:(dispatch_block_t)block;
++ (instancetype)headerWithRefreshingTarget:(id)target action:(SEL)action;
++ (instancetype)footerWithRefreshingBlock:(dispatch_block_t)block;
++ (instancetype)footerWithRefreshingTarget:(id)target action:(SEL)action;
+
 @property (nonatomic, strong) SWRefreshViewModel* sourceViewModel;
 
 #pragma mark   Override method

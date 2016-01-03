@@ -28,4 +28,7 @@
 - (void)changePullingPercent:(CGFloat)pullingPercent;
 - (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState;
 
+- (void)bindSourceViewModel:(SWRefreshViewModel*)sourceViewModel NS_REQUIRES_SUPER;
+- (void)unbindSourceViewModel:(SWRefreshViewModel*)sourceViewModel NS_REQUIRES_SUPER;
+
 @end

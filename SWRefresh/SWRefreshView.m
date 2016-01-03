@@ -65,15 +65,23 @@
 - (void)setSourceViewModel:(SWRefreshViewModel *)sourceViewModel {
     if (_sourceViewModel != sourceViewModel) {
         if (_sourceViewModel) {
-            [_sourceViewModel removeObserver:self forKeyPath:@"state"];
-            [_sourceViewModel removeObserver:self forKeyPath:@"pullingPercent"];
+            [self unbindSourceViewModel:_sourceViewModel];
         }
         _sourceViewModel = sourceViewModel;
         if (_sourceViewModel) {
-            [_sourceViewModel addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:@"state"];
-            [_sourceViewModel addObserver:self forKeyPath:@"pullingPercent" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:@"pullingPercent"];
+            [self bindSourceViewModel:_sourceViewModel];
         }
     }
+}
+
+- (void)bindSourceViewModel:(SWRefreshViewModel *)sourceViewModel {
+    [sourceViewModel addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:@"state"];
+    [sourceViewModel addObserver:self forKeyPath:@"pullingPercent" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:@"pullingPercent"];
+}
+
+- (void)unbindSourceViewModel:(SWRefreshViewModel *)sourceViewModel {
+    [sourceViewModel removeObserver:self forKeyPath:@"state"];
+    [sourceViewModel removeObserver:self forKeyPath:@"pullingPercent"];
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSString *,id> *)change context:(nullable void *)context {

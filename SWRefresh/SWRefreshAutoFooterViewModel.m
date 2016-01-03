@@ -50,15 +50,15 @@
 }
 
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {
-    if (self.state != SWRefreshStateIdle || !_refreshAutomatically || self.scrollView.isDragging) { return; }
+    if (self.state != SWRefreshStateIdle || !_refreshAutomatically) { return; }
 
     CGFloat happendOffsetY = [self happendOffsetY];
     CGFloat offsetY = self.scrollView.contentOffset.y;
 
     if (happendOffsetY < offsetY) {
-        CGPoint old = [change[NSKeyValueChangeOldKey] CGPointValue];
-        CGPoint new = [change[NSKeyValueChangeNewKey] CGPointValue];
-        if (old.y > new.y) { return; } // 往上划, 不触发
+        CGPoint oldP = [change[NSKeyValueChangeOldKey] CGPointValue];
+        CGPoint newP = [change[NSKeyValueChangeNewKey] CGPointValue];
+        if (oldP.y > newP.y) { return; } // 往上划, 不触发
 
         [self beginRefreshing:NO];
     }

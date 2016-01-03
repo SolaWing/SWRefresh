@@ -48,7 +48,23 @@
     };
 
     if (animated) {
-        [UIView animateWithDuration:0.25 animations:block];
+        // when call -[UICollectionView reload] before endRefreshing,
+        // reload will also animated and cause flicker.
+        // so delay it
+        if ([_scrollView isKindOfClass:[UICollectionView class]]) {
+            dispatch_block_t strongBlock = [block copy];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01* NSEC_PER_SEC),
+                dispatch_get_main_queue(), ^
+            {
+                [UIView animateWithDuration:0.25 delay:0
+                                    options:UIViewAnimationOptionBeginFromCurrentState
+                                 animations:strongBlock completion:nil];
+            });
+        } else {
+            [UIView animateWithDuration:0.25 delay:0
+                                options:UIViewAnimationOptionBeginFromCurrentState
+                             animations:block completion:nil];
+        }
     } else {
         block();
     }

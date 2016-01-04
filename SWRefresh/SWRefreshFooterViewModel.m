@@ -40,7 +40,9 @@
 }
 
 - (void)resetNoMoreData {
-    self.state = SWRefreshStateIdle;
+    if (self.state == SWRefreshStateNoMoreData) {
+        self.state = SWRefreshStateIdle;
+    }
 }
 
 

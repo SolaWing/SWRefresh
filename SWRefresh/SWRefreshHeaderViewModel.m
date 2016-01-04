@@ -10,6 +10,13 @@
 
 @implementation SWRefreshHeaderViewModel
 
+- (void)unbindScrollView:(UIScrollView *)scrollView {
+    if (self.state == SWRefreshStateRefreshing) {
+        self.state = SWRefreshStateIdle;
+    }
+    [super unbindScrollView:scrollView];
+}
+
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {
     CGPoint offset = self.scrollView.contentOffset;
     if (self.state == SWRefreshStateRefreshing) {
@@ -53,13 +60,11 @@
 - (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState {
     NSAssert([NSThread isMainThread], @"should change state in main thread!");
 
-    if (newState == SWRefreshStateIdle) {
-        if (oldState == SWRefreshStateRefreshing) {
-            // 恢复inset, 只更改top
-            UIEdgeInsets inset = self.scrollView.contentInset;
-            inset.top = _scrollViewOriginInsets.top;
-            self.scrollView.contentInset = inset;
-        }
+    if (oldState == SWRefreshStateRefreshing) {
+        // 恢复inset, 只更改top
+        UIEdgeInsets inset = self.scrollView.contentInset;
+        inset.top = _scrollViewOriginInsets.top;
+        self.scrollView.contentInset = inset;
     } else if (newState == SWRefreshStateRefreshing) {
         // 保持inset, 只更改top
         UIEdgeInsets inset = self.scrollView.contentInset;

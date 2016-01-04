@@ -10,6 +10,13 @@
 
 @implementation SWRefreshBackFooterViewModel
 
+- (void)unbindScrollView:(UIScrollView *)scrollView {
+    if (self.state == SWRefreshStateRefreshing) {
+        self.state = SWRefreshStateIdle;
+    }
+    [super unbindScrollView:scrollView];
+}
+
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {
     CGPoint offset = self.scrollView.contentOffset;
     if (self.state == SWRefreshStateRefreshing) {
@@ -54,13 +61,11 @@
 - (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState {
     NSAssert([NSThread isMainThread], @"should change state in main thread!");
 
-    if (newState == SWRefreshStateIdle || newState == SWRefreshStateNoMoreData) {
-        if (oldState == SWRefreshStateRefreshing) {
-            // 恢复inset, 只更改bottom
-            UIEdgeInsets inset = self.scrollView.contentInset;
-            inset.bottom = _scrollViewOriginInsets.bottom;
-            self.scrollView.contentInset = inset;
-        }
+    if (oldState == SWRefreshStateRefreshing) {
+        // 恢复inset, 只更改bottom
+        UIEdgeInsets inset = self.scrollView.contentInset;
+        inset.bottom = _scrollViewOriginInsets.bottom;
+        self.scrollView.contentInset = inset;
     } else if (newState == SWRefreshStateRefreshing) {
         // 保持inset, 只更改bottom
         UIEdgeInsets inset = self.scrollView.contentInset;

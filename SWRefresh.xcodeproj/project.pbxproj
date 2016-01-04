@@ -20,8 +20,9 @@
 		217499571C351FC600399768 /* SWRefreshFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 217499561C351FC600399768 /* SWRefreshFooterViewModel.m */; };
 		2175B1061C356D770089C6D3 /* SWRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2175B1051C356D770089C6D3 /* SWRefresh.m */; };
 		2175B1091C356E9F0089C6D3 /* UIScrollView+SWRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2175B1081C356E9F0089C6D3 /* UIScrollView+SWRefresh.m */; };
-		217ED0FE1C361B9400B9BEB1 /* SWRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 217ED0FD1C361B9400B9BEB1 /* SWRefreshHeaderView.m */; };
-		217ED1011C361BA600B9BEB1 /* SWRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 217ED1001C361BA600B9BEB1 /* SWRefreshFooterView.m */; };
+		218C3C541C39F5BE008C7AD4 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218C3C531C39F5BE008C7AD4 /* TableViewController.m */; };
+		218C3C5B1C39FCBC008C7AD4 /* SWRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 218C3C581C39FCBC008C7AD4 /* SWRefreshFooterView.m */; };
+		218C3C5C1C39FCBC008C7AD4 /* SWRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 218C3C5A1C39FCBC008C7AD4 /* SWRefreshHeaderView.m */; };
 		219483F61C39144100F4C27D /* SWRefreshBackFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 219483F51C39144100F4C27D /* SWRefreshBackFooterViewModel.m */; };
 		219483F91C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 219483F81C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m */; };
 /* End PBXBuildFile section */
@@ -72,10 +73,12 @@
 		2175B1051C356D770089C6D3 /* SWRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefresh.m; sourceTree = "<group>"; };
 		2175B1071C356E9F0089C6D3 /* UIScrollView+SWRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SWRefresh.h"; sourceTree = "<group>"; };
 		2175B1081C356E9F0089C6D3 /* UIScrollView+SWRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SWRefresh.m"; sourceTree = "<group>"; };
-		217ED0FC1C361B9400B9BEB1 /* SWRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshHeaderView.h; sourceTree = "<group>"; };
-		217ED0FD1C361B9400B9BEB1 /* SWRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshHeaderView.m; sourceTree = "<group>"; };
-		217ED0FF1C361BA600B9BEB1 /* SWRefreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshFooterView.h; sourceTree = "<group>"; };
-		217ED1001C361BA600B9BEB1 /* SWRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshFooterView.m; sourceTree = "<group>"; };
+		218C3C521C39F5BE008C7AD4 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		218C3C531C39F5BE008C7AD4 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		218C3C571C39FCBC008C7AD4 /* SWRefreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshFooterView.h; sourceTree = "<group>"; };
+		218C3C581C39FCBC008C7AD4 /* SWRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshFooterView.m; sourceTree = "<group>"; };
+		218C3C591C39FCBC008C7AD4 /* SWRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshHeaderView.h; sourceTree = "<group>"; };
+		218C3C5A1C39FCBC008C7AD4 /* SWRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshHeaderView.m; sourceTree = "<group>"; };
 		219483F41C39144100F4C27D /* SWRefreshBackFooterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshBackFooterViewModel.h; sourceTree = "<group>"; };
 		219483F51C39144100F4C27D /* SWRefreshBackFooterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshBackFooterViewModel.m; sourceTree = "<group>"; };
 		219483F71C39159B00F4C27D /* SWRefreshAutoFooterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshAutoFooterViewModel.h; sourceTree = "<group>"; };
@@ -133,6 +136,8 @@
 		217499321C34D6EF00399768 /* SWRefreshExample */ = {
 			isa = PBXGroup;
 			children = (
+				218C3C561C39FCBC008C7AD4 /* DIY */,
+				218C3C4E1C39F586008C7AD4 /* Examples */,
 				217499361C34D6EF00399768 /* AppDelegate.h */,
 				217499371C34D6EF00399768 /* AppDelegate.m */,
 				217499391C34D6EF00399768 /* ViewController.h */,
@@ -178,12 +183,28 @@
 			children = (
 				217499521C351EB000399768 /* SWRefreshView.h */,
 				217499531C351EB000399768 /* SWRefreshView.m */,
-				217ED0FC1C361B9400B9BEB1 /* SWRefreshHeaderView.h */,
-				217ED0FD1C361B9400B9BEB1 /* SWRefreshHeaderView.m */,
-				217ED0FF1C361BA600B9BEB1 /* SWRefreshFooterView.h */,
-				217ED1001C361BA600B9BEB1 /* SWRefreshFooterView.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		218C3C4E1C39F586008C7AD4 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				218C3C521C39F5BE008C7AD4 /* TableViewController.h */,
+				218C3C531C39F5BE008C7AD4 /* TableViewController.m */,
+			);
+			name = Examples;
+			sourceTree = "<group>";
+		};
+		218C3C561C39FCBC008C7AD4 /* DIY */ = {
+			isa = PBXGroup;
+			children = (
+				218C3C571C39FCBC008C7AD4 /* SWRefreshFooterView.h */,
+				218C3C581C39FCBC008C7AD4 /* SWRefreshFooterView.m */,
+				218C3C591C39FCBC008C7AD4 /* SWRefreshHeaderView.h */,
+				218C3C5A1C39FCBC008C7AD4 /* SWRefreshHeaderView.m */,
+			);
+			path = DIY;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,13 +303,11 @@
 				2174994D1C34D74600399768 /* SWRefreshViewModel.m in Sources */,
 				2175B1061C356D770089C6D3 /* SWRefresh.m in Sources */,
 				217499571C351FC600399768 /* SWRefreshFooterViewModel.m in Sources */,
-				217ED1011C361BA600B9BEB1 /* SWRefreshFooterView.m in Sources */,
 				219483F91C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m in Sources */,
 				219483F61C39144100F4C27D /* SWRefreshBackFooterViewModel.m in Sources */,
 				217499541C351EB000399768 /* SWRefreshView.m in Sources */,
 				217499501C35030000399768 /* SWRefreshHeaderViewModel.m in Sources */,
 				2175B1091C356E9F0089C6D3 /* UIScrollView+SWRefresh.m in Sources */,
-				217ED0FE1C361B9400B9BEB1 /* SWRefreshHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,8 +316,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2174993B1C34D6EF00399768 /* ViewController.m in Sources */,
+				218C3C5C1C39FCBC008C7AD4 /* SWRefreshHeaderView.m in Sources */,
+				218C3C5B1C39FCBC008C7AD4 /* SWRefreshFooterView.m in Sources */,
 				217499381C34D6EF00399768 /* AppDelegate.m in Sources */,
 				217499351C34D6EF00399768 /* main.m in Sources */,
+				218C3C541C39F5BE008C7AD4 /* TableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

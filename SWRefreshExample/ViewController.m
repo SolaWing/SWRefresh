@@ -15,7 +15,8 @@
 
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray* dataSource;
+@property (nonatomic, strong) NSMutableDictionary* dataSource;
+@property (nonatomic, strong) NSArray* keys;
 
 @end
 
@@ -23,53 +24,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _dataSource = [NSMutableArray new];
-    for (int i = 0; i < 5; ++i) {
-        [_dataSource addObject:[NSString stringWithFormat:@"%@", [NSDate date]]];
-    }
+    _dataSource = [NSMutableDictionary new];
+    _dataSource[@"TableView"] = @"TableViewController";
+
+    _keys = [_dataSource allKeys];
+
     self.automaticallyAdjustsScrollViewInsets = YES;
 
-    [UIScrollView registerDefaultHeaderView:[SWRefreshHeaderView class] andModel:[SWRefreshHeaderViewModel class]];
-    [UIScrollView registerDefaultFooterView:[SWRefreshFooterView class] andModel:[SWRefreshBackFooterViewModel class]];
-    // Do any additional setup after loading the view, typically from a nib.
     UITableView* tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     tableView.dataSource = self;
     tableView.delegate = self;
     [self.view addSubview:tableView];
-
-    __weak typeof(self) weak_self = self;
-    __weak typeof(tableView) weak_tableView = tableView;
-    id block =^(void){
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2* NSEC_PER_SEC),
-            dispatch_get_main_queue(), ^{
-                for (int i = 0; i < 3; ++i) {
-                    [weak_self.dataSource addObject:[NSDate date].description];
-                }
-                [weak_tableView reloadData];
-                [weak_tableView.refreshHeader endRefreshing:YES];
-        });
-    };
-    [tableView refreshHeader:block];
-    block =^(void){
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2* NSEC_PER_SEC),
-            dispatch_get_main_queue(), ^{
-                for (int i = 0; i < 3; ++i) {
-                    [weak_self.dataSource addObject:[NSDate date].description];
-                }
-                [weak_tableView reloadData];
-                if (weak_self.dataSource.count > 20){
-                    [weak_tableView.refreshFooter endRefreshingWithNoMoreData:YES];
-                } else {
-                    [weak_tableView.refreshFooter endRefreshing:YES];
-                }
-        });
-    };
-    [tableView refreshFooter:block];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {return 1;}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _dataSource.count;
+    return _keys.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -84,17 +54,17 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:CellIdentifier];
     }
-    cell.textLabel.text = _dataSource[indexPath.row];
+    cell.textLabel.text = _keys[indexPath.row];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSString* title = _keys[indexPath.row];
+    NSString* className = _dataSource[title];
+    Class cls = NSClassFromString(className);
+    UIViewController* vc = [cls new];
+    vc.navigationItem.title = title;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

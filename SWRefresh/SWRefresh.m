@@ -17,6 +17,13 @@
     self.scrollView = nil;
 }
 
+- (instancetype)init {
+    if (self = [super init]) {
+        _footerVisibleThreshold = 200;
+    }
+    return self;
+}
+
 - (void)setHeader:(SWRefreshHeaderViewModel *)header {
     if (_header != header) {
         // bind scrollView
@@ -37,7 +44,9 @@
         }
         _footer = footer;
         if (_footer) {
-            _footer.scrollView = _scrollView;
+            if ([self isFooterVisible]) {
+                _footer.scrollView = _scrollView;
+            }
         }
     }
 }
@@ -69,6 +78,7 @@
         if (_footerView) {
             [_scrollView insertSubview:footerView atIndex:0];
             [self updateFooterViewFrame];
+            _footerView.hidden = ![self isFooterVisible];
         }
     }
 }
@@ -96,7 +106,25 @@
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSString *,id> *)change context:(nullable void *)context {
     if (@"contentSize" == context) {
         [self updateFooterViewFrame];
+        [self updateFooterVisible];
     }
+}
+
+- (void)setFooterVisibleThreshold:(CGFloat)footerVisibleThreshold {
+    if (footerVisibleThreshold != _footerVisibleThreshold) {
+        _footerVisibleThreshold = footerVisibleThreshold;
+        [self updateFooterVisible];
+    }
+}
+
+- (void)updateFooterVisible {
+    BOOL isFooterVisible = [self isFooterVisible];
+    _footer.scrollView = isFooterVisible?_scrollView:nil;
+    _footerView.hidden = !isFooterVisible;
+}
+
+- (BOOL)isFooterVisible {
+    return _scrollView.contentSize.height > _footerVisibleThreshold;
 }
 
 @end

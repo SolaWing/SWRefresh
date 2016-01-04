@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _dataSource = [NSMutableArray new];
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 1; ++i) {
         [_dataSource addObject:[NSString stringWithFormat:@"%@", [NSDate date]]];
     }
     [UIScrollView registerDefaultHeaderView:[SWRefreshHeaderView class] andModel:[SWRefreshHeaderViewModel class]];

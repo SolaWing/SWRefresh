@@ -12,6 +12,7 @@
 #import "SWRefreshAutoFooterViewModel.h"
 #import "SWRefreshView.h"
 
+/** 该类主要用来管理Header和Footer */
 @interface SWRefresh : NSObject
 
 /** 使用assign, 确保deallocing时不会置空 */
@@ -22,5 +23,8 @@
 
 @property (nonatomic, strong) UIView<SWRefreshView>* headerView;
 @property (nonatomic, strong) UIView<SWRefreshView>* footerView;
+
+/** when content height below this threshold, footer will hide and disable. default 200 */
+@property (nonatomic, assign) CGFloat footerVisibleThreshold;
 
 @end

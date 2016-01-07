@@ -20,14 +20,16 @@
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {
     CGPoint offset = self.scrollView.contentOffset;
     if (self.state == SWRefreshStateRefreshing) {
-        // Keep header, inset 应该在 origin top inset 和 加上高度之前
-        UIEdgeInsets inset = self.scrollView.contentInset;
-        inset.top = -offset.y;
-        if (inset.top < _scrollViewOriginInsets.top) { inset.top = _scrollViewOriginInsets.top; }
-        else if (inset.top > _refreshThreshold + _scrollViewOriginInsets.top) {
-            inset.top = _refreshThreshold + _scrollViewOriginInsets.top;
+        if ( self.scrollView.dragging ) {
+            // Keep header, inset 应该在 origin top inset 和 加上高度之前
+            UIEdgeInsets inset = self.scrollView.contentInset;
+            inset.top = -offset.y;
+            if (inset.top < _scrollViewOriginInsets.top) { inset.top = _scrollViewOriginInsets.top; }
+            else if (inset.top > _refreshThreshold + _scrollViewOriginInsets.top) {
+                inset.top = _refreshThreshold + _scrollViewOriginInsets.top;
+            }
+            self.scrollView.contentInset = inset;
         }
-        self.scrollView.contentInset = inset;
         return;
     }
 

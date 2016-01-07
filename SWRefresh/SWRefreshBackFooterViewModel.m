@@ -20,15 +20,17 @@
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {
     CGPoint offset = self.scrollView.contentOffset;
     if (self.state == SWRefreshStateRefreshing) {
-        // Keep footer, inset 应该在 origin bottom inset 和 加上高度之前
-        CGFloat happendOffsetY = [self happendOffsetY];
-        CGFloat extendOffset = offset.y - happendOffsetY;
-        if (extendOffset < 0) { extendOffset = 0; }
-        else if (extendOffset > _refreshThreshold) { extendOffset = _refreshThreshold; }
+        if ( self.scrollView.dragging ) {
+            // Keep footer, inset 应该在 origin bottom inset 和 加上高度之前
+            CGFloat happendOffsetY = [self happendOffsetY];
+            CGFloat extendOffset = offset.y - happendOffsetY;
+            if (extendOffset < 0) { extendOffset = 0; }
+            else if (extendOffset > _refreshThreshold) { extendOffset = _refreshThreshold; }
 
-        UIEdgeInsets inset = self.scrollView.contentInset;
-        inset.bottom = extendOffset + _scrollViewOriginInsets.bottom;
-        self.scrollView.contentInset = inset;
+            UIEdgeInsets inset = self.scrollView.contentInset;
+            inset.bottom = extendOffset + _scrollViewOriginInsets.bottom;
+            self.scrollView.contentInset = inset;
+        }
         return;
     }
 

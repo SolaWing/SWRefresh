@@ -24,6 +24,7 @@
     return self;
 }
 
+#pragma mark - property
 - (void)setHeader:(SWRefreshHeaderViewModel *)header {
     if (_header != header) {
         // bind scrollView
@@ -58,13 +59,9 @@
         }
         _headerView = headerView;
         if (_headerView) {
-            CGRect frame = headerView.frame;
-            frame.size.width = _scrollView.frame.size.width;
-            frame.origin.y = -frame.size.height;
-            frame.origin.x = 0;
-            headerView.frame = frame;
-            headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-            [_scrollView insertSubview:headerView atIndex:0];
+            _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            [_scrollView insertSubview:_headerView atIndex:0];
+            [self updateHeaderViewFrame];
         }
     }
 }
@@ -83,12 +80,38 @@
     }
 }
 
+- (void)setInsetTop:(CGFloat)insetTop {
+    if (_insetTop != insetTop) {
+        _insetTop = insetTop;
+        [self updateHeaderViewFrame];
+    }
+}
+
+- (void)setInsetBottom:(CGFloat)insetBottom {
+    if (_insetBottom != insetBottom) {
+        _insetBottom = insetBottom;
+        [self updateFooterViewFrame];
+    }
+}
+
+- (void)updateHeaderViewFrame {
+    if (_headerView) {
+        CGRect frame = _headerView.frame;
+        frame.size.width = _scrollView.bounds.size.width;
+        frame.origin.y = -frame.size.height - _insetTop;
+        frame.origin.x = 0;
+        _headerView.frame = frame;
+    }
+}
+
 - (void)updateFooterViewFrame {
-    CGRect frame = _footerView.frame;
-    CGSize contentSize = _scrollView.contentSize;
-    frame.size.width = contentSize.width;
-    frame.origin.y = contentSize.height;
-    _footerView.frame = frame;
+    if (_footerView) {
+        CGRect frame = _footerView.frame;
+        CGSize contentSize = _scrollView.contentSize;
+        frame.size.width = contentSize.width;
+        frame.origin.y = contentSize.height;
+        _footerView.frame = frame;
+    }
 }
 
 - (void)setScrollView:(UIScrollView *)scrollView {

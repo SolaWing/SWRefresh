@@ -63,6 +63,9 @@
         });
     };
     [tableView refreshFooter:block];
+
+    tableView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0);
+    tableView.refreshControl.insetTop = 50;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {return 1;}

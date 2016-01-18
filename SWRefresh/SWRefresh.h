@@ -24,6 +24,9 @@
 @property (nonatomic, strong) UIView<SWRefreshView>* headerView;
 @property (nonatomic, strong) UIView<SWRefreshView>* footerView;
 
+@property (nonatomic) CGFloat insetTop;     ///< insetTop for headerView
+@property (nonatomic) CGFloat insetBottom;  ///< insetBottom for footerView
+
 /** when content height below this threshold, footer will hide and disable. default 200 */
 @property (nonatomic, assign) CGFloat footerVisibleThreshold;
 

@@ -121,15 +121,17 @@
         }
         _scrollView = scrollView;
         if (_scrollView) {
-            [_scrollView addObserver:self forKeyPath:@"contentSize" options:0 context:@"contentSize"];
+            [_scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionOld context:@"contentSize"];
         }
     }
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSString *,id> *)change context:(nullable void *)context {
     if (@"contentSize" == context) {
-        [self updateFooterViewFrame];
-        [self updateFooterVisible];
+        if (!CGSizeEqualToSize( [change[NSKeyValueChangeOldKey] CGSizeValue], _scrollView.contentSize )) {
+            [self updateFooterViewFrame];
+            [self updateFooterVisible];
+        }
     }
 }
 
@@ -147,7 +149,8 @@
 }
 
 - (BOOL)isFooterVisible {
-    return _scrollView.contentSize.height > _footerVisibleThreshold;
+    return _scrollView.contentSize.height > _footerVisibleThreshold
+        && (!_hideWhenNoMore || _footer.state != SWRefreshStateNoMoreData);
 }
 
 @end

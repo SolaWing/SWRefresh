@@ -29,5 +29,7 @@
 
 /** when content height below this threshold, footer will hide and disable. default 200 */
 @property (nonatomic, assign) CGFloat footerVisibleThreshold;
+/** when nomore state, hide footer */
+@property (nonatomic) bool hideWhenNoMore;
 
 @end

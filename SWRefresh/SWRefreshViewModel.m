@@ -8,6 +8,12 @@
 
 #import "SWRefreshViewModel.h"
 
+@interface SWRefreshViewModel ()
+
+@property (nonatomic, getter=isAnimating) BOOL animating;
+
+@end
+
 @implementation SWRefreshViewModel
 
 -(void)dealloc {
@@ -23,6 +29,7 @@
 
 - (void)initialize {
     _state = SWRefreshStateIdle;
+    _userInfo = [NSMutableDictionary new];
 }
 
 #pragma mark - API
@@ -42,28 +49,44 @@
 }
 
 - (void)endRefreshing:(BOOL)animated {
+    return [self endRefreshingWithState:SWRefreshStateIdle animated:animated
+                                 reason:SWRefreshEndRefreshSuccessToken];
+}
+
+- (void)endRefreshing:(BOOL)animated reason:(id)reason {
+    return [self endRefreshingWithState:SWRefreshStateIdle animated:animated
+                                 reason:SWRefreshEndRefreshSuccessToken];
+}
+
+- (void)endRefreshingWithState:(SWRefreshState)state animated:(BOOL)animated reason:(id)reason {
     __unsafe_unretained dispatch_block_t block = ^{
-        self.state = SWRefreshStateIdle;
+        self.state = state;
         self.pullingPercent = 0.0;
     };
+
+    self.endRefreshingReason = reason;
 
     if (animated) {
         // when call -[UICollectionView reload] before endRefreshing,
         // reload will also animated and cause flicker.
         // so delay it
+        self.animating = YES;
+        id completeBlock = ^(BOOL finish){
+            self.animating = NO;
+        };
         if ([_scrollView isKindOfClass:[UICollectionView class]]) {
             dispatch_block_t strongBlock = [block copy];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01* NSEC_PER_SEC),
                 dispatch_get_main_queue(), ^
             {
-                [UIView animateWithDuration:0.25 delay:0
+                [UIView animateWithDuration:self.endRefreshingAnimationDuration delay:0
                                     options:UIViewAnimationOptionBeginFromCurrentState
-                                 animations:strongBlock completion:nil];
+                                 animations:strongBlock completion:completeBlock];
             });
         } else {
-            [UIView animateWithDuration:0.25 delay:0
+            [UIView animateWithDuration:self.endRefreshingAnimationDuration delay:0
                                 options:UIViewAnimationOptionBeginFromCurrentState
-                             animations:block completion:nil];
+                             animations:block completion:completeBlock];
         }
     } else {
         block();
@@ -116,8 +139,49 @@
     [self changeFromState:old to:state];
 }
 
-#pragma mark - KVO
+#pragma mark - property
+#define kAnimatingKey @"__animating"
+- (BOOL)isAnimating {
+    return [_userInfo[kAnimatingKey] boolValue];
+}
 
+- (void)setAnimating:(BOOL)animating {
+    if (animating) {
+        _userInfo[kAnimatingKey] = @YES;
+    } else {
+        [_userInfo removeObjectForKey:kAnimatingKey];
+    }
+}
+
+#define kEndRefreshReasonKey @"__endRefreshReason"
+- (id)endRefreshingReason {
+    return _userInfo[kEndRefreshReasonKey];
+}
+
+- (void)setEndRefreshingReason:(id)endRefreshingReason {
+    if (nil == endRefreshingReason) {
+        [_userInfo removeObjectForKey:kEndRefreshReasonKey];
+    } else {
+        _userInfo[kEndRefreshReasonKey] = endRefreshingReason;
+    }
+}
+
+#define kEndRefreshingAnimationDurationKey @"__endRefreshAnimationDuration"
+- (NSTimeInterval)endRefreshingAnimationDuration {
+    id duration = _userInfo[kEndRefreshingAnimationDurationKey];
+    if (duration) { return [duration doubleValue]; }
+    return 0.25; // default value
+}
+
+- (void)setEndRefreshingAnimationDuration:(NSTimeInterval)endRefreshingAnimationDuration {
+    if (endRefreshingAnimationDuration == 0) {
+        [_userInfo removeObjectForKey:kEndRefreshingAnimationDurationKey];
+    } else {
+        _userInfo[kEndRefreshingAnimationDurationKey] = @(endRefreshingAnimationDuration);
+    }
+}
+
+#pragma mark - KVO
 - (void)bindScrollView:(UIScrollView*)scrollView {
     _scrollViewOriginInsets = scrollView.contentInset;
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;

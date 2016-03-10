@@ -44,6 +44,11 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 - (void)beginRefreshing:(BOOL)animated;
 /** 结束刷新状态 */
 - (void)endRefreshing:(BOOL)animated;
+/** 结束刷新状态并设置结束原因 */
+- (void)endRefreshing:(BOOL)animated reason:(id)reason;
+/** 结束刷新状态并设置结束状态和原因 */
+- (void)endRefreshingWithState:(SWRefreshState)state animated:(BOOL)animated reason:(id)reason;
+#define SWRefreshEndRefreshSuccessToken @YES
 /** 是否正在刷新 */
 - (BOOL)isRefreshing;
 /** 刷新状态 */
@@ -51,6 +56,12 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 
 /** 拉拽的百分比 */
 @property (assign, nonatomic) CGFloat pullingPercent;
+
+/** a dictionary use to save userInfo */
+@property (nonatomic, strong, readonly) NSMutableDictionary* userInfo;
+@property (nonatomic, getter=isAnimating, readonly) BOOL animating;
+@property (nonatomic, strong) id endRefreshingReason;
+@property (nonatomic) NSTimeInterval endRefreshingAnimationDuration;
 
 #pragma mark 可覆盖方法
 - (void)initialize  NS_REQUIRES_SUPER;

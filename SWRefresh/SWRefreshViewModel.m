@@ -34,6 +34,11 @@
 
 #pragma mark - API
 - (void)beginRefreshing:(BOOL)animated {
+    return [self beginRefreshing:animated source:SWRefreshSourceUserToken];
+}
+
+- (void)beginRefreshing:(BOOL)animated source:(id)source{
+    self.beginRefreshingSource = source;
     __unsafe_unretained dispatch_block_t block = ^{
         self.pullingPercent = 1.0;
         if (self.state != SWRefreshStateRefreshing) {
@@ -150,6 +155,19 @@
         _userInfo[kAnimatingKey] = @YES;
     } else {
         [_userInfo removeObjectForKey:kAnimatingKey];
+    }
+}
+
+#define kBeginRefreshSourceKey @"__BeginRefreshSource"
+- (id)beginRefreshingSource {
+    return _userInfo[kBeginRefreshSourceKey];
+}
+
+- (void)setBeginRefreshingSource:(id)beginRefreshingSource {
+    if (nil == beginRefreshingSource) {
+        [_userInfo removeObjectForKey:kBeginRefreshSourceKey];
+    } else {
+        _userInfo[kBeginRefreshSourceKey] = beginRefreshingSource;
     }
 }
 

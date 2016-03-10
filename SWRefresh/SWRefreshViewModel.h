@@ -42,13 +42,16 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 #pragma mark 状态
 /** 进入刷新状态 */
 - (void)beginRefreshing:(BOOL)animated;
+#define SWRefreshSourceUserToken nil
+/** 进入刷新状态, source可用来区分触发刷新来源 */
+- (void)beginRefreshing:(BOOL)animated source:(id)source;
 /** 结束刷新状态 */
 - (void)endRefreshing:(BOOL)animated;
 /** 结束刷新状态并设置结束原因 */
 - (void)endRefreshing:(BOOL)animated reason:(id)reason;
 /** 结束刷新状态并设置结束状态和原因 */
 - (void)endRefreshingWithState:(SWRefreshState)state animated:(BOOL)animated reason:(id)reason;
-#define SWRefreshEndRefreshSuccessToken @YES
+#define SWRefreshEndRefreshSuccessToken nil
 /** 是否正在刷新 */
 - (BOOL)isRefreshing;
 /** 刷新状态 */
@@ -60,6 +63,7 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 /** a dictionary use to save userInfo */
 @property (nonatomic, strong, readonly) NSMutableDictionary* userInfo;
 @property (nonatomic, getter=isAnimating, readonly) BOOL animating;
+@property (nonatomic, strong) id beginRefreshingSource;
 @property (nonatomic, strong) id endRefreshingReason;
 @property (nonatomic) NSTimeInterval endRefreshingAnimationDuration;
 

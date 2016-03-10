@@ -8,6 +8,7 @@
 
 #import "SWRefreshAutoFooterViewModel.h"
 
+#define kAutoRefreshMinInterval 0.5
 @implementation SWRefreshAutoFooterViewModel
 
 - (void)initialize {
@@ -61,6 +62,19 @@
         if (oldP.y > newP.y) { return; } // 往上划, 不触发
 
         [self beginRefreshing:NO];
+    }
+}
+
+- (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState {
+    if (oldState == SWRefreshStateRefreshing) {
+        // 限制自动刷新频率, 可预防反复失败的情况
+        if (_refreshAutomatically) {
+            _refreshAutomatically = NO;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kAutoRefreshMinInterval * NSEC_PER_SEC),
+                dispatch_get_main_queue(), ^{
+                    self->_refreshAutomatically = YES;
+            });
+        }
     }
 }
 

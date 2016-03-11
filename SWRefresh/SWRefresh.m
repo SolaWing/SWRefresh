@@ -109,7 +109,7 @@
         CGRect frame = _footerView.frame;
         CGSize contentSize = _scrollView.contentSize;
         frame.size.width = contentSize.width;
-        frame.origin.y = contentSize.height;
+        frame.origin.y = contentSize.height + _insetBottom;
         _footerView.frame = frame;
     }
 }

@@ -59,7 +59,7 @@
     if (happendOffsetY < offsetY) {
         CGPoint oldP = [change[NSKeyValueChangeOldKey] CGPointValue];
         CGPoint newP = [change[NSKeyValueChangeNewKey] CGPointValue];
-        if (oldP.y > newP.y) { return; } // 往上划, 不触发
+        if (oldP.y >= newP.y) { return; } // 往上划, 不触发
 
         [self beginRefreshing:NO];
     }

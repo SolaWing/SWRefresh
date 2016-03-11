@@ -51,7 +51,10 @@
 }
 
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {
-    if (self.state != SWRefreshStateIdle || !_refreshAutomatically) { return; }
+    if (self.state != SWRefreshStateIdle ||
+        !_refreshAutomatically ||
+        self.scrollView.isDragging)
+    { return; }
 
     CGFloat happendOffsetY = [self happendOffsetY];
     CGFloat offsetY = self.scrollView.contentOffset.y;

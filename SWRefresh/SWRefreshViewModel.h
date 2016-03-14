@@ -21,18 +21,15 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 
 };
 
-/** Refresh基类, 不要直接使用 */
+/** Refresh基类, 不要直接使用.
+ * 该类用来管理刷新状态和ScrollView相关刷新状态
+ * 并做为相应View的数据源 */
 @interface SWRefreshViewModel : NSObject
 
 /** 使用assign确保deallocing时, scrollView仍然有效 */
 @property (nonatomic, assign) UIScrollView* scrollView;
 @property (nonatomic, assign) UIEdgeInsets scrollViewOriginInsets;
 
-/** set scrollView inset without change SWRefreshViewModels scrollViewOriginInsets
- *  subclasses may need to call this method to avoid modify scrollViewOriginInsets
- */
-- (void)setScrollViewTempInset:(UIEdgeInsets)inset;
-- (BOOL)isSettingTempInset; ///< return YES when calling setScrollViewTempInset;
 #pragma mark 回调
 /** 正在刷新的回调 */
 @property (nonatomic, copy) dispatch_block_t refreshingBlock;
@@ -43,32 +40,38 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 - (void)executeRefreshingCallback;
 
 #pragma mark 状态
-/** 进入刷新状态 */
+
+/** 进入刷新状态, 默认来源 SWRefreshSourceUserToken */
 - (void)beginRefreshing:(BOOL)animated;
 #define SWRefreshSourceUserToken nil
-/** 进入刷新状态, source可用来区分触发刷新来源 */
+/** 进入刷新状态, source可用来区分触发刷新来源, 该值可以通过beginRefreshingSource得到 */
 - (void)beginRefreshing:(BOOL)animated source:(id)source;
-/** 结束刷新状态 */
+
+/** 结束刷新状态, 默认原因 SWRefreshEndRefreshSuccessToken */
 - (void)endRefreshing:(BOOL)animated;
-/** 结束刷新状态并设置结束原因 */
+#define SWRefreshEndRefreshSuccessToken nil
+/** 结束刷新状态并设置结束原因, reason可通过endRefreshingReason得到 */
 - (void)endRefreshing:(BOOL)animated reason:(id)reason;
 /** 结束刷新状态并设置结束状态和原因 */
 - (void)endRefreshingWithState:(SWRefreshState)state animated:(BOOL)animated reason:(id)reason;
-#define SWRefreshEndRefreshSuccessToken nil
+
 /** 是否正在刷新 */
-- (BOOL)isRefreshing;
+@property (nonatomic, readonly, getter=isRefreshing) BOOL refreshing;
 /** 刷新状态 */
 @property (nonatomic) SWRefreshState state;
 
 /** 拉拽的百分比 */
 @property (assign, nonatomic) CGFloat pullingPercent;
 
+
 /** a dictionary use to save userInfo */
 @property (nonatomic, strong, readonly) NSMutableDictionary* userInfo;
 @property (nonatomic, getter=isAnimating, readonly) BOOL animating;
 @property (nonatomic, strong) id beginRefreshingSource;
 @property (nonatomic, strong) id endRefreshingReason;
+/** customizable duration of end refreshing animation */
 @property (nonatomic) NSTimeInterval endRefreshingAnimationDuration;
+
 
 #pragma mark 可覆盖方法
 - (void)initialize  NS_REQUIRES_SUPER;
@@ -78,6 +81,13 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 - (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState;
 - (void)bindScrollView:(UIScrollView*)scrollView NS_REQUIRES_SUPER;
 - (void)unbindScrollView:(UIScrollView*)scrollView NS_REQUIRES_SUPER;
+
+#pragma mark 子类或相关类调用方法
+/** set scrollView inset without change SWRefreshViewModels scrollViewOriginInsets
+ *  subclasses may need to call this method to avoid modify scrollViewOriginInsets
+ */
+- (void)setScrollViewTempInset:(UIEdgeInsets)inset;
+- (BOOL)isSettingTempInset; ///< return YES when calling setScrollViewTempInset;
 
 @end
 

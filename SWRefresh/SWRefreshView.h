@@ -24,7 +24,7 @@
 
 @property (nonatomic, strong) SWRefreshViewModel* sourceViewModel;
 
-#pragma mark   Override method
+#pragma mark   Overridable method
 - (void)changePullingPercent:(CGFloat)pullingPercent;
 - (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState;
 

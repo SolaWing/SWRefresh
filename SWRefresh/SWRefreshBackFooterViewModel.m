@@ -11,10 +11,10 @@
 @implementation SWRefreshBackFooterViewModel
 
 - (void)unbindScrollView:(UIScrollView *)scrollView {
+    [super unbindScrollView:scrollView];
     if (self.state == SWRefreshStateRefreshing) {
         self.state = SWRefreshStateIdle;
     }
-    [super unbindScrollView:scrollView];
 }
 
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {

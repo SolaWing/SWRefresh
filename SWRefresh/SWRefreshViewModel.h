@@ -22,14 +22,17 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 };
 
 /** Refresh基类, 不要直接使用 */
-@interface SWRefreshViewModel : NSObject{
-    UIEdgeInsets _scrollViewOriginInsets;
-}
+@interface SWRefreshViewModel : NSObject
 
 /** 使用assign确保deallocing时, scrollView仍然有效 */
 @property (nonatomic, assign) UIScrollView* scrollView;
 @property (nonatomic, assign) UIEdgeInsets scrollViewOriginInsets;
 
+/** set scrollView inset without change SWRefreshViewModels scrollViewOriginInsets
+ *  subclasses may need to call this method to avoid modify scrollViewOriginInsets
+ */
+- (void)setScrollViewTempInset:(UIEdgeInsets)inset;
+- (BOOL)isSettingTempInset; ///< return YES when calling setScrollViewTempInset;
 #pragma mark 回调
 /** 正在刷新的回调 */
 @property (nonatomic, copy) dispatch_block_t refreshingBlock;
@@ -70,6 +73,8 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 #pragma mark 可覆盖方法
 - (void)initialize  NS_REQUIRES_SUPER;
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change;
+/** default imp check and change scrollViewOriginInsets */
+- (void)scrollViewContentInsetDidChange:(NSDictionary *)change;
 - (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState;
 - (void)bindScrollView:(UIScrollView*)scrollView NS_REQUIRES_SUPER;
 - (void)unbindScrollView:(UIScrollView*)scrollView NS_REQUIRES_SUPER;

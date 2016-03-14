@@ -28,14 +28,14 @@
             else if (extendOffset > _refreshThreshold) { extendOffset = _refreshThreshold; }
 
             UIEdgeInsets inset = self.scrollView.contentInset;
-            inset.bottom = extendOffset + _scrollViewOriginInsets.bottom;
-            self.scrollView.contentInset = inset;
+            inset.bottom = extendOffset + self.scrollViewOriginInsets.bottom;
+            [self setScrollViewTempInset:inset];
         }
         return;
     }
 
     // inset可能改变
-    _scrollViewOriginInsets = self.scrollView.contentInset;
+    // _scrollViewOriginInsets = self.scrollView.contentInset;
     // 刚好出现offset
     CGFloat happendOffsetY = [self happendOffsetY];
 
@@ -66,17 +66,18 @@
     if (oldState == SWRefreshStateRefreshing) {
         // 恢复inset, 只更改bottom
         UIEdgeInsets inset = self.scrollView.contentInset;
-        inset.bottom = _scrollViewOriginInsets.bottom;
-        self.scrollView.contentInset = inset;
+        inset.bottom = self.scrollViewOriginInsets.bottom;
+        [self setScrollViewTempInset:inset];
     } else if (newState == SWRefreshStateRefreshing) {
         // 保持inset, 只更改bottom
         UIEdgeInsets inset = self.scrollView.contentInset;
-        inset.bottom = _refreshThreshold + _scrollViewOriginInsets.bottom;
-        self.scrollView.contentInset = inset;
+        inset.bottom = _refreshThreshold + self.scrollViewOriginInsets.bottom;
+        [self setScrollViewTempInset:inset];
     }
 }
 
 - (CGFloat)happendOffsetY {
+    UIEdgeInsets _scrollViewOriginInsets = self.scrollViewOriginInsets;
     CGFloat offsetY = self.scrollView.contentSize.height + _scrollViewOriginInsets.bottom - self.scrollView.frame.size.height ;
     if (offsetY < -_scrollViewOriginInsets.top) { return -_scrollViewOriginInsets.top; }
 

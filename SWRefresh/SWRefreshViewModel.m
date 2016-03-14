@@ -7,6 +7,7 @@
 //
 
 #import "SWRefreshViewModel.h"
+#import <objc/runtime.h>
 
 @interface SWRefreshViewModel ()
 
@@ -144,6 +145,25 @@
     [self changeFromState:old to:state];
 }
 
+static char TempInsetKey;
+- (void)setScrollViewTempInset:(UIEdgeInsets)inset {
+    UIScrollView* scrollView = self.scrollView;
+    if (scrollView) {
+        id value = @YES;
+        objc_setAssociatedObject(scrollView, &TempInsetKey, value, OBJC_ASSOCIATION_ASSIGN);
+        scrollView.contentInset = inset;
+        objc_setAssociatedObject(scrollView, &TempInsetKey, nil, OBJC_ASSOCIATION_ASSIGN);
+    }
+}
+
+- (BOOL)isSettingTempInset {
+    UIScrollView* scrollView = self.scrollView;
+    if (scrollView) {
+        return objc_getAssociatedObject(scrollView, &TempInsetKey) != nil;
+    }
+    return NO;
+}
+
 #pragma mark - property
 #define kAnimatingKey @"__animating"
 - (BOOL)isAnimating {
@@ -204,20 +224,32 @@
     _scrollViewOriginInsets = scrollView.contentInset;
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
     [scrollView addObserver:self forKeyPath:@"contentOffset" options:options context:@"contentOffset"];
+    [scrollView addObserver:self forKeyPath:@"contentInset" options:options context:@"contentInset"];
 }
 
 - (void)unbindScrollView:(UIScrollView*)scrollView {
     [scrollView removeObserver:self forKeyPath:@"contentOffset"];
+    [scrollView removeObserver:self forKeyPath:@"contentInset"];
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSString *,id> *)change context:(nullable void *)context {
     if (@"contentOffset" == context) {
         [self scrollViewContentOffsetDidChange:change];
+    } else if (@"contentInset" == context) {
+        // check if change temp inset
+        if (![self isSettingTempInset]) {
+            [self scrollViewContentInsetDidChange:change];
+        }
     }
 }
 
 #pragma mark - Override方法
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {}
+- (void)scrollViewContentInsetDidChange:(NSDictionary *)change {
+    UIEdgeInsets inset = [change[NSKeyValueChangeNewKey] UIEdgeInsetsValue];
+    self.scrollViewOriginInsets = inset;
+}
+
 - (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState {}
 
 @end

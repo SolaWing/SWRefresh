@@ -19,6 +19,7 @@
 
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {
     CGPoint offset = self.scrollView.contentOffset;
+    UIEdgeInsets _scrollViewOriginInsets = self.scrollViewOriginInsets;
     if (self.state == SWRefreshStateRefreshing) {
         if ( self.scrollView.dragging ) {
             // Keep header, inset 应该在 origin top inset 和 加上高度之前
@@ -28,13 +29,13 @@
             else if (inset.top > _refreshThreshold + _scrollViewOriginInsets.top) {
                 inset.top = _refreshThreshold + _scrollViewOriginInsets.top;
             }
-            self.scrollView.contentInset = inset;
+            [self setScrollViewTempInset:inset];
         }
         return;
     }
 
-    // inset可能改变
-    _scrollViewOriginInsets = self.scrollView.contentInset;
+    // inset可能改变, 改为父类监听修改
+    // _scrollViewOriginInsets = self.scrollView.contentInset;
     // 刚好出现offset
     CGFloat happendOffsetY = -_scrollViewOriginInsets.top;
 
@@ -65,13 +66,13 @@
     if (oldState == SWRefreshStateRefreshing) {
         // 恢复inset, 只更改top
         UIEdgeInsets inset = self.scrollView.contentInset;
-        inset.top = _scrollViewOriginInsets.top;
-        self.scrollView.contentInset = inset;
+        inset.top = self.scrollViewOriginInsets.top;
+        [self setScrollViewTempInset:inset];
     } else if (newState == SWRefreshStateRefreshing) {
         // 保持inset, 只更改top
         UIEdgeInsets inset = self.scrollView.contentInset;
-        inset.top = _refreshThreshold + _scrollViewOriginInsets.top;
-        self.scrollView.contentInset = inset;
+        inset.top = _refreshThreshold + self.scrollViewOriginInsets.top;
+        [self setScrollViewTempInset:inset];
     }
 }
 

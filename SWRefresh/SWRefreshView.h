@@ -13,8 +13,10 @@
     SWRefreshViewModel* _sourceViewModel;
 }
 
-+ (Class)defaultHeaderViewModelClass;
-+ (Class)defaultFooterViewModelClass;
++ (Class)defaultHeaderViewModelClass; ///< default use SWRefreshHeaderViewModel
++ (Class)defaultFooterViewModelClass; ///< default use SWRefreshFooterViewModel
++ (Class)defaultHeaderControllerClass; ///< default use SWRefreshHeaderController
++ (Class)defaultFooterControllerClass; ///< default use SWRefreshFooterController
 
 /** one shot for create view and ViewModel and bind them */
 + (instancetype)headerWithRefreshingBlock:(dispatch_block_t)block;

@@ -97,9 +97,14 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 @property (nonatomic, strong) SWRefreshViewModel* sourceViewModel;
 
 @optional
-/** return default headerViewModelClass. used when need to create one. default use SWRefreshHeaderViewModel */
-+ (Class)defaultHeaderViewModelClass; ///<
-/** return default footerViewModelClass. used when need to create one. default use SWRefreshFooterViewModel */
-+ (Class)defaultFooterViewModelClass; ///< return default footerViewModelClass. used when need to create one.
+/** return default headerViewModelClass. used when need to create one. */
++ (Class)defaultHeaderViewModelClass;
+/** return default footerViewModelClass. used when need to create one. */
++ (Class)defaultFooterViewModelClass;
+
+/** return default id<SWRefreshHeaderController> class. used when need to create one. */
++ (Class)defaultHeaderControllerClass;
+/** return default id<SWRefreshFooterController> class. used when need to create one. */
++ (Class)defaultFooterControllerClass;
 
 @end

@@ -18,13 +18,13 @@
 		217499501C35030000399768 /* SWRefreshHeaderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2174994F1C35030000399768 /* SWRefreshHeaderViewModel.m */; };
 		217499541C351EB000399768 /* SWRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 217499531C351EB000399768 /* SWRefreshView.m */; };
 		217499571C351FC600399768 /* SWRefreshFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 217499561C351FC600399768 /* SWRefreshFooterViewModel.m */; };
-		2175B1061C356D770089C6D3 /* SWRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2175B1051C356D770089C6D3 /* SWRefresh.m */; };
 		2175B1091C356E9F0089C6D3 /* UIScrollView+SWRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2175B1081C356E9F0089C6D3 /* UIScrollView+SWRefresh.m */; };
 		218C3C541C39F5BE008C7AD4 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218C3C531C39F5BE008C7AD4 /* TableViewController.m */; };
 		218C3C5B1C39FCBC008C7AD4 /* SWRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 218C3C581C39FCBC008C7AD4 /* SWRefreshFooterView.m */; };
 		218C3C5C1C39FCBC008C7AD4 /* SWRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 218C3C5A1C39FCBC008C7AD4 /* SWRefreshHeaderView.m */; };
 		219483F61C39144100F4C27D /* SWRefreshBackFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 219483F51C39144100F4C27D /* SWRefreshBackFooterViewModel.m */; };
 		219483F91C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 219483F81C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m */; };
+		21E71BE91C96B2AD005E2D0C /* SWRefreshController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E71BE81C96B2AD005E2D0C /* SWRefreshController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,8 +69,6 @@
 		217499531C351EB000399768 /* SWRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshView.m; sourceTree = "<group>"; };
 		217499551C351FC600399768 /* SWRefreshFooterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshFooterViewModel.h; sourceTree = "<group>"; };
 		217499561C351FC600399768 /* SWRefreshFooterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshFooterViewModel.m; sourceTree = "<group>"; };
-		2175B1041C356D770089C6D3 /* SWRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefresh.h; sourceTree = "<group>"; };
-		2175B1051C356D770089C6D3 /* SWRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefresh.m; sourceTree = "<group>"; };
 		2175B1071C356E9F0089C6D3 /* UIScrollView+SWRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SWRefresh.h"; sourceTree = "<group>"; };
 		2175B1081C356E9F0089C6D3 /* UIScrollView+SWRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SWRefresh.m"; sourceTree = "<group>"; };
 		218C3C521C39F5BE008C7AD4 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
@@ -83,6 +81,8 @@
 		219483F51C39144100F4C27D /* SWRefreshBackFooterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshBackFooterViewModel.m; sourceTree = "<group>"; };
 		219483F71C39159B00F4C27D /* SWRefreshAutoFooterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshAutoFooterViewModel.h; sourceTree = "<group>"; };
 		219483F81C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshAutoFooterViewModel.m; sourceTree = "<group>"; };
+		21E71BE71C96B2AD005E2D0C /* SWRefreshController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshController.h; sourceTree = "<group>"; };
+		21E71BE81C96B2AD005E2D0C /* SWRefreshController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +127,7 @@
 			children = (
 				217499511C351E4E00399768 /* ViewModel */,
 				217ED0FB1C360EB000B9BEB1 /* View */,
+				21E71BE61C96B1EA005E2D0C /* Controller */,
 				2175B1071C356E9F0089C6D3 /* UIScrollView+SWRefresh.h */,
 				2175B1081C356E9F0089C6D3 /* UIScrollView+SWRefresh.m */,
 			);
@@ -162,8 +163,6 @@
 		217499511C351E4E00399768 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				2175B1041C356D770089C6D3 /* SWRefresh.h */,
-				2175B1051C356D770089C6D3 /* SWRefresh.m */,
 				2174994B1C34D74600399768 /* SWRefreshViewModel.h */,
 				2174994C1C34D74600399768 /* SWRefreshViewModel.m */,
 				2174994E1C35030000399768 /* SWRefreshHeaderViewModel.h */,
@@ -205,6 +204,15 @@
 				218C3C5A1C39FCBC008C7AD4 /* SWRefreshHeaderView.m */,
 			);
 			path = DIY;
+			sourceTree = "<group>";
+		};
+		21E71BE61C96B1EA005E2D0C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				21E71BE71C96B2AD005E2D0C /* SWRefreshController.h */,
+				21E71BE81C96B2AD005E2D0C /* SWRefreshController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,7 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2174994D1C34D74600399768 /* SWRefreshViewModel.m in Sources */,
-				2175B1061C356D770089C6D3 /* SWRefresh.m in Sources */,
+				21E71BE91C96B2AD005E2D0C /* SWRefreshController.m in Sources */,
 				217499571C351FC600399768 /* SWRefreshFooterViewModel.m in Sources */,
 				219483F91C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m in Sources */,
 				219483F61C39144100F4C27D /* SWRefreshBackFooterViewModel.m in Sources */,

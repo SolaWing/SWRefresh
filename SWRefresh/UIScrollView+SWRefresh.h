@@ -7,30 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SWRefresh.h"
+#import "SWRefreshController.h"
 
 @interface UIScrollView (SWRefresh)
 
-@property (nonatomic, strong, readonly) SWRefresh* refreshControl;
+@property (nonatomic, strong) id<SWRefreshHeaderController> refreshHeader;
+@property (nonatomic, strong) id<SWRefreshFooterController> refreshFooter;
 
-@property (nonatomic, strong) __kindof SWRefreshHeaderViewModel* refreshHeader;
-@property (nonatomic, strong) __kindof SWRefreshFooterViewModel* refreshFooter;
-
-/** 设置时会使用view绑定的ViewModel */
+@property (nonatomic, strong) __kindof SWRefreshHeaderViewModel* refreshHeaderModel;
+@property (nonatomic, strong) __kindof SWRefreshFooterViewModel* refreshFooterModel;
+/** 设置时可能会创建默认的controller, 使用view的model */
 @property (nonatomic, strong) __kindof UIView<SWRefreshView>* refreshHeaderView;
 @property (nonatomic, strong) __kindof UIView<SWRefreshView>* refreshFooterView;
-
-/** default class. used by refreshHeader and refreshFooter
- * for view class, must adopt SWRefreshView protocol.
- * for view model, must be SWRefreshHeaderViewModel or SWRefreshFooterViewModel subclass */
-+ (void)registerDefaultHeaderView:(Class)headerViewClass andModel:(Class)modelViewClass;
-+ (void)registerDefaultFooterView:(Class)footerViewClass andModel:(Class)modelViewClass;
-
-/** 使用默认注册的View, ViewModel */
-- (void)refreshHeader:(dispatch_block_t)callback;
-- (void)refreshFooter:(dispatch_block_t)callback;
-- (void)refreshHeaderTarget:(id)target action:(SEL)action;
-- (void)refreshFooterTarget:(id)target action:(SEL)action;
-
 
 @end

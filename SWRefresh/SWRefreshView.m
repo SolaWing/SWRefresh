@@ -7,6 +7,7 @@
 //
 
 #import "SWRefreshView.h"
+#import "SWRefreshController.h"
 #import "SWRefreshHeaderViewModel.h"
 #import "SWRefreshBackFooterViewModel.h"
 
@@ -18,6 +19,8 @@
 
 + (Class)defaultHeaderViewModelClass { return [SWRefreshHeaderViewModel class]; }
 + (Class)defaultFooterViewModelClass { return [SWRefreshBackFooterViewModel class]; }
++ (Class)defaultHeaderControllerClass { return [SWRefreshHeaderController class]; }
++ (Class)defaultFooterControllerClass { return [SWRefreshFooterController class]; }
 
 + (instancetype)headerWithRefreshingBlock:(dispatch_block_t)block {
     SWRefreshView* headerView = [self new];

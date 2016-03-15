@@ -9,105 +9,69 @@
 #import "UIScrollView+SWRefresh.h"
 #import <objc/runtime.h>
 
-#define DefaultHeaderViewModel SWRefreshHeaderViewModel
-#define DefaultFooterViewModel SWRefreshFooterViewModel
-
 @implementation UIScrollView (SWRefresh)
 
-static char refreshControlKey;
-- (SWRefresh *)refreshControl {
-    SWRefresh* ret = objc_getAssociatedObject(self, &refreshControlKey);
-    if (!ret) { // 没有时自动创建一个
-        ret = [SWRefresh new]; ret.scrollView = self;
-        [self setRefreshControl:ret];
+- (id<SWRefreshHeaderController>)refreshHeader {
+    return objc_getAssociatedObject(self, @selector(refreshHeader));
+}
+
+- (void)setRefreshHeader:(id<SWRefreshHeaderController>)refreshHeader {
+    objc_setAssociatedObject(self, @selector(refreshHeader), refreshHeader, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (refreshHeader) {
+        refreshHeader.scrollView = self;
     }
-    return ret;
 }
 
-- (void)setRefreshControl:(SWRefresh *)refreshControl {
-    objc_setAssociatedObject(self, &refreshControlKey, refreshControl, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (id<SWRefreshFooterController>)refreshFooter {
+    return objc_getAssociatedObject(self, @selector(refreshFooter));
 }
 
-- (SWRefreshHeaderViewModel *)refreshHeader {
-    return self.refreshControl.header;
+- (void)setRefreshFooter:(id<SWRefreshFooterController>)refreshFooter {
+    objc_setAssociatedObject(self, @selector(refreshFooter), refreshFooter, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (refreshFooter) {
+        refreshFooter.scrollView = self;
+    }
 }
 
-- (void)setRefreshHeader:(SWRefreshHeaderViewModel *)refreshHeader {
-    self.refreshControl.header = refreshHeader;
+#pragma mark - computed property
+- (SWRefreshHeaderViewModel *)refreshHeaderModel { return [self.refreshHeader headerModel]; }
+- (SWRefreshFooterViewModel *)refreshFooterModel { return [self.refreshFooter footerModel]; }
+- (UIView<SWRefreshView> *)refreshHeaderView { return [self.refreshHeader headerView]; }
+- (UIView<SWRefreshView> *)refreshFooterView { return [self.refreshFooter footerView]; }
+- (void)setRefreshHeaderModel:(__kindof SWRefreshHeaderViewModel *)refreshHeaderModel {
+    [self.refreshHeader setHeaderModel:refreshHeaderModel];
 }
 
-- (SWRefreshFooterViewModel *)refreshFooter {
-    return self.refreshControl.footer;
+- (void)setRefreshFooterModel:(__kindof SWRefreshFooterViewModel *)refreshFooterModel {
+    [self.refreshFooter setFooterModel:refreshFooterModel];
 }
 
-- (void)setRefreshFooter:(SWRefreshFooterViewModel *)refreshFooter {
-    self.refreshControl.footer = refreshFooter;
+- (void)setRefreshHeaderView:(__kindof UIView<SWRefreshView> *)refreshHeaderView {
+    id<SWRefreshHeaderController> controller = self.refreshHeader;
+    if (!refreshHeaderView) {
+        [controller setHeaderView:nil];
+        return;
+    }
+    if (!controller) {
+         controller = [[refreshHeaderView.class defaultHeaderControllerClass] new];
+    }
+    [controller setHeaderModel:(id)refreshHeaderView.sourceViewModel];
+    [controller setHeaderView:refreshHeaderView];
 }
 
-
-static Class headerViewClass, headerViewModelClass, footerViewClass, footerViewModelClass;
-+ (void)registerDefaultHeaderView:(Class)headerViewClass_ andModel:(Class)modelViewClass_ {
-    headerViewClass = headerViewClass_;
-    headerViewModelClass = modelViewClass_;
+- (void)setRefreshFooterView:(__kindof UIView<SWRefreshView> *)refreshFooterView {
+    id<SWRefreshFooterController> controller = self.refreshFooter;
+    if (!refreshFooterView) {
+        [controller setFooterView:nil];
+        return;
+    }
+    if (!controller) {
+        controller = [[refreshFooterView.class defaultFooterControllerClass] new];
+    }
+    [controller setFooterModel:(id)refreshFooterView.sourceViewModel];
+    [controller setFooterView:refreshFooterView];
 }
 
-+ (void)registerDefaultFooterView:(Class)footerViewClass_ andModel:(Class)modelViewClass_ {
-    footerViewClass = footerViewClass_;
-    footerViewModelClass = modelViewClass_;
-}
-
-- (void)refreshHeader:(dispatch_block_t)callback {
-    UIView<SWRefreshView>* headerView = [headerViewClass new];
-    SWRefreshHeaderViewModel* headerModel = [headerViewModelClass new];
-    headerModel.refreshThreshold = headerView.frame.size.height;
-    headerView.sourceViewModel = headerModel;
-
-    headerModel.refreshingBlock = callback;
-    [self setRefreshHeaderView:headerView];
-
-}
-
-- (void)refreshFooter:(dispatch_block_t)callback {
-    UIView<SWRefreshView>* footerView = [footerViewClass new];
-    SWRefreshFooterViewModel* footerModel = [footerViewModelClass new];
-    footerModel.refreshThreshold = footerView.frame.size.height;
-    footerView.sourceViewModel = footerModel;
-
-    footerModel.refreshingBlock = callback;
-    [self setRefreshFooterView:footerView];
-
-}
-
-- (void)refreshHeaderTarget:(id)target action:(SEL)action {
-    UIView<SWRefreshView>* headerView = [headerViewClass new];
-    SWRefreshHeaderViewModel* headerModel = [headerViewModelClass new];
-    headerModel.refreshThreshold = headerView.frame.size.height;
-    headerView.sourceViewModel = headerModel;
-
-    [headerModel setRefreshingTarget:target refreshingAction:action];
-    [self setRefreshHeaderView:headerView];
-}
-
-- (void)refreshFooterTarget:(id)target action:(SEL)action {
-    UIView<SWRefreshView>* footerView = [footerViewClass new];
-    SWRefreshFooterViewModel* footerModel = [footerViewModelClass new];
-    footerModel.refreshThreshold = footerView.frame.size.height;
-    footerView.sourceViewModel = footerModel;
-
-    [footerModel setRefreshingTarget:target refreshingAction:action];
-    [self setRefreshFooterView:footerView];
-}
-
-- (void)setRefreshHeaderView:(UIView<SWRefreshView>*)headerView {
-    self.refreshControl.headerView = headerView;
-    self.refreshHeader = (id)headerView.sourceViewModel;
-}
-
-- (void)setRefreshFooterView:(UIView<SWRefreshView>*)footerView {
-    self.refreshControl.footerView = footerView;
-    self.refreshFooter = (id)footerView.sourceViewModel;
-}
-
-- (UIView<SWRefreshView> *)refreshHeaderView { return self.refreshControl.headerView; }
-- (UIView<SWRefreshView> *)refreshFooterView { return self.refreshControl.footerView; }
++ (Class)defaultRefreshHeaderClass { return [SWRefreshHeaderController class]; }
++ (Class)defaultRefreshFooterClass { return [SWRefreshFooterController class]; }
 @end

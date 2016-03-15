@@ -19,7 +19,9 @@
         _scrollView = scrollView;
 
         self.headerModel.scrollView = _scrollView;
-        [self layoutHeaderView];
+        if (_headerView) {
+            [self layoutHeaderView];
+        }
     }
 }
 
@@ -58,21 +60,21 @@
     }
 }
 
-- (void)setInsetTop:(CGFloat)insetTop {
-    if (_insetTop != insetTop) {
-        _insetTop = insetTop;
-        [self updateHeaderViewFrame];
+- (void)setHeaderOffset:(CGFloat)headerOffset {
+    if (_headerOffset != headerOffset) {
+        _headerOffset = headerOffset;
+        if (_scrollView && _headerView) {
+            [self updateHeaderViewFrame];
+        }
     }
 }
 
 - (void)updateHeaderViewFrame {
-    if (_headerView && _scrollView) {
-        CGRect frame = _headerView.frame;
-        frame.size.width = _scrollView.bounds.size.width;
-        frame.origin.y = -frame.size.height - _insetTop;
-        frame.origin.x = 0;
-        _headerView.frame = frame;
-    }
+    CGRect frame = _headerView.frame;
+    frame.size.width = _scrollView.bounds.size.width;
+    frame.origin.y = -frame.size.height - _headerOffset;
+    frame.origin.x = 0;
+    _headerView.frame = frame;
 }
 
 
@@ -82,6 +84,13 @@
 
 - (void)dealloc {
     self.scrollView = nil;
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _footerVisibleThreshold = 200;
+    }
+    return self;
 }
 
 - (void)setScrollView:(UIScrollView *)scrollView {
@@ -94,8 +103,12 @@
             [_scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionOld context:@"contentSize"];
         }
 
-        [self layoutFooterView];
-        [self updateFooterVisible];
+        if (_footerView) {
+            [self layoutFooterView];
+        }
+        if (_footerModel) {
+            _footerModel.scrollView = [self isFooterVisible]?_scrollView:nil;
+        }
     }
 }
 
@@ -106,9 +119,7 @@
         }
         _footerModel = footerModel;
         if (_footerModel) {
-            if ([self isFooterVisible]) {
-                _footerModel.scrollView = _scrollView;
-            }
+            _footerModel.scrollView = [self isFooterVisible]?_scrollView:nil;
         }
     }
 }
@@ -136,9 +147,9 @@
     }
 }
 
-- (void)setInsetBottom:(CGFloat)insetBottom {
-    if (_insetBottom != insetBottom) {
-        _insetBottom = insetBottom;
+- (void)setFooterOffset:(CGFloat)footerOffset {
+    if (_footerOffset != footerOffset) {
+        _footerOffset = footerOffset;
         [self updateFooterViewFrame];
     }
 }
@@ -148,7 +159,7 @@
         CGRect frame = _footerView.frame;
         CGSize contentSize = _scrollView.contentSize;
         frame.size.width = contentSize.width;
-        frame.origin.y = contentSize.height + _insetBottom;
+        frame.origin.y = contentSize.height + _footerOffset;
         _footerView.frame = frame;
     }
 }

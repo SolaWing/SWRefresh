@@ -27,6 +27,8 @@
 
         _stateLabel.text = @"上拉刷新";
         [_stateLabel sizeToFit];
+        
+        self.alpha = 0;
     }
     return self;
 }

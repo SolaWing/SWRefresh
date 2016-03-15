@@ -27,8 +27,6 @@
     for (int i = 0; i < 1; ++i) {
         [_dataSource addObject:[NSString stringWithFormat:@"%@", [NSDate date]]];
     }
-    [UIScrollView registerDefaultHeaderView:[SWRefreshHeaderView class] andModel:[SWRefreshHeaderViewModel class]];
-    [UIScrollView registerDefaultFooterView:[SWRefreshFooterView class] andModel:[SWRefreshBackFooterViewModel class]];
     // Do any additional setup after loading the view, typically from a nib.
     UITableView* tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     tableView.dataSource = (id)self;
@@ -43,11 +41,11 @@
                 for (int i = 0; i < 3; ++i) {
                     [weak_self.dataSource addObject:[NSDate date].description];
                 }
+                [weak_tableView.refreshHeaderModel endRefreshing:YES];
                 [weak_tableView reloadData];
-                [weak_tableView.refreshHeader endRefreshing:YES];
         });
     };
-    [tableView refreshHeader:block];
+    tableView.refreshHeaderView = [SWRefreshHeaderView headerWithRefreshingBlock:block];
     block =^(void){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2* NSEC_PER_SEC),
             dispatch_get_main_queue(), ^{
@@ -56,16 +54,16 @@
                 }
                 [weak_tableView reloadData];
                 if (weak_self.dataSource.count > 20){
-                    [weak_tableView.refreshFooter endRefreshingWithNoMoreData:YES];
+                    [weak_tableView.refreshFooterModel endRefreshingWithNoMoreData:YES];
                 } else {
-                    [weak_tableView.refreshFooter endRefreshing:YES];
+                    [weak_tableView.refreshFooterModel endRefreshing:YES];
                 }
         });
     };
-    [tableView refreshFooter:block];
+    tableView.refreshFooterView = [SWRefreshFooterView footerWithRefreshingBlock:block];
 
     tableView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0);
-    tableView.refreshControl.insetTop = 50;
+    tableView.refreshHeader.headerOffset = 50;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {return 1;}

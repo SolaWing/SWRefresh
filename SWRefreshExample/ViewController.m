@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "UIScrollView+SWRefresh.h"
-#import "SWRefresh.h"
 #import "SWRefreshHeaderView.h"
 #import "SWRefreshFooterView.h"
 #import "SWRefreshBackFooterViewModel.h"

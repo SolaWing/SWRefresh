@@ -28,6 +28,8 @@
 @optional
 - (void)setHeaderModel:(__kindof SWRefreshHeaderViewModel *)headerModel;
 - (void)setHeaderView:(__kindof UIView<SWRefreshView> *)headerView;
+/** offset for pos headerView */
+@property (nonatomic) CGFloat headerOffset;
 
 @end
 
@@ -44,6 +46,9 @@
 - (void)setFooterModel:(__kindof SWRefreshFooterViewModel *)footerModel;
 - (void)setFooterView:(__kindof UIView<SWRefreshView> *)footerView;
 
+/** offset for pos footerView */
+@property (nonatomic) CGFloat footerOffset;
+@property (nonatomic) CGFloat footerVisibleThreshold;
 @property (nonatomic) bool hideWhenNoMore;
 
 @end
@@ -56,7 +61,7 @@
 @property (nonatomic, assign) UIScrollView* scrollView;
 @property (nonatomic, strong) __kindof UIView<SWRefreshView>* headerView;
 @property (nonatomic, strong) __kindof SWRefreshHeaderViewModel* headerModel;
-@property (nonatomic) CGFloat insetTop;     ///< insetTop for headerView
+@property (nonatomic) CGFloat headerOffset;     ///< insetTop for headerView, positive offset make headerView move to top
 
 @end
 
@@ -66,7 +71,7 @@
 @property (nonatomic, strong) __kindof UIView<SWRefreshView>* footerView;
 @property (nonatomic, strong) __kindof SWRefreshFooterViewModel* footerModel;
 
-@property (nonatomic) CGFloat insetBottom;  ///< insetBottom for footerView
+@property (nonatomic) CGFloat footerOffset;  ///< insetBottom for footerView, positive offset make footerView move to bottom
 /** when content height below this threshold, footer will hide and disable. default 200 */
 @property (nonatomic, assign) CGFloat footerVisibleThreshold;
 /** when nomore state, hide footer */

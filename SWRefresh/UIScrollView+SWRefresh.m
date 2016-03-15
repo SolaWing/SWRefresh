@@ -53,7 +53,8 @@
         return;
     }
     if (!controller) {
-         controller = [[refreshHeaderView.class defaultHeaderControllerClass] new];
+        controller = [[refreshHeaderView.class defaultHeaderControllerClass] new];
+        self.refreshHeader = controller;
     }
     [controller setHeaderModel:(id)refreshHeaderView.sourceViewModel];
     [controller setHeaderView:refreshHeaderView];
@@ -67,6 +68,7 @@
     }
     if (!controller) {
         controller = [[refreshFooterView.class defaultFooterControllerClass] new];
+        self.refreshFooter = controller;
     }
     [controller setFooterModel:(id)refreshFooterView.sourceViewModel];
     [controller setFooterView:refreshFooterView];

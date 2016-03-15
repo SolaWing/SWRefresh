@@ -83,6 +83,7 @@
 
 - (CGFloat)happendOffsetY {
     UIEdgeInsets inset = self.scrollView.contentInset;
+    // 自动触发点在刚显示view, 加上偏移值
     CGFloat offsetY = self.scrollView.contentSize.height + inset.bottom - _bottomInset
         - self.scrollView.frame.size.height + _refreshThreshold;
     CGFloat minOffset = -inset.top + _bottomInset; // 最低触发点离原点有一定距离

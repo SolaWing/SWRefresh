@@ -60,7 +60,7 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 /** 刷新状态 */
 @property (nonatomic) SWRefreshState state;
 
-/** 拉拽的百分比 */
+/** 拉拽的百分比, 可能会大于1 */
 @property (assign, nonatomic) CGFloat pullingPercent;
 
 

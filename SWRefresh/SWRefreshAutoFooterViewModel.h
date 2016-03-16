@@ -12,10 +12,11 @@
 @interface SWRefreshAutoFooterViewModel : SWRefreshFooterViewModel
 
 /** 是否超过临界点后自动刷新 */
-@property (nonatomic, assign, getter=isRefreshAutomatically) BOOL refreshAutomatically;
+@property (nonatomic, getter=isRefreshAutomatically) BOOL refreshAutomatically;
 /** ScrollView底部需要预留出的空间 */
-@property (nonatomic, assign) CGFloat bottomInset;
-
-
+@property (nonatomic) CGFloat bottomInset;
+/** the length use to calculate pullingPercent
+ * 0 means pullingPercent only have 0 and 1 two values */
+@property (nonatomic) CGFloat pullingLength;
 
 @end

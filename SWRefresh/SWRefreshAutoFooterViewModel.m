@@ -24,13 +24,17 @@
     }
 }
 
+static inline void scrollViewChangeBottomInset(UIScrollView* scrollView, CGFloat deltaBottomInset) {
+    if (deltaBottomInset == 0) return;
+    UIEdgeInsets inset = scrollView.contentInset;
+    inset.bottom += deltaBottomInset;
+    scrollView.contentInset = inset;
+}
+
 - (void)setBottomInset:(CGFloat)bottomInset {
     if (bottomInset != _bottomInset) {
         if (self.scrollView) {
-            UIEdgeInsets inset = self.scrollView.contentInset;
-            CGFloat delta = bottomInset - _bottomInset;
-            inset.bottom += delta;
-            self.scrollView.contentInset = inset;
+            scrollViewChangeBottomInset(self.scrollView, bottomInset - _bottomInset);
         }
         _bottomInset = bottomInset;
     }
@@ -38,33 +42,39 @@
 
 - (void)bindScrollView:(UIScrollView *)scrollView {
     [super bindScrollView:scrollView];
-    UIEdgeInsets inset = scrollView.contentInset;
-    inset.bottom += _bottomInset;
-    scrollView.contentInset = inset;
+    scrollViewChangeBottomInset(scrollView, _bottomInset);
 }
 
 - (void)unbindScrollView:(UIScrollView *)scrollView {
     [super unbindScrollView:scrollView];
-    UIEdgeInsets inset = scrollView.contentInset;
-    inset.bottom -= _bottomInset;
-    scrollView.contentInset = inset;
+    scrollViewChangeBottomInset(scrollView, -_bottomInset);
 }
 
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {
-    if (self.state != SWRefreshStateIdle ||
-        !_refreshAutomatically ||
-        self.scrollView.isDragging)
+    if ([self isRefreshing] || (self.pullingLength <= 0 &&
+        (!_refreshAutomatically ||
+         self.state == SWRefreshStateNoMoreData ||
+         self.scrollView.isDragging)))
     { return; }
 
-    CGFloat happendOffsetY = [self happendOffsetY];
+    CGFloat pullingOffsetY = [self pullingOffsetY];
     CGFloat offsetY = self.scrollView.contentOffset.y;
 
-    if (happendOffsetY < offsetY) {
+    if (self.pullingLength > 0) { // 计算percent
+        // 开始改变pullingPercent的位置
+        CGFloat happendOffsetY = pullingOffsetY  - self.pullingLength;
+        if (offsetY < happendOffsetY) { return; }
+
+        self.pullingPercent = (offsetY - happendOffsetY) / self.pullingLength;
+
+        if (self.scrollView.isDragging || self.state == SWRefreshStateNoMoreData) { return; }
+    }
+    if (pullingOffsetY < offsetY) {
         CGPoint oldP = [change[NSKeyValueChangeOldKey] CGPointValue];
         CGPoint newP = [change[NSKeyValueChangeNewKey] CGPointValue];
         if (oldP.y >= newP.y) { return; } // 往上划, 不触发
 
-        [self beginRefreshing:NO];
+        [self beginRefreshing:YES];
     }
 }
 
@@ -81,7 +91,7 @@
     }
 }
 
-- (CGFloat)happendOffsetY {
+- (CGFloat)pullingOffsetY {
     UIEdgeInsets inset = self.scrollView.contentInset;
     // 自动触发点在刚显示view, 加上偏移值
     CGFloat offsetY = self.scrollView.contentSize.height + inset.bottom - _bottomInset

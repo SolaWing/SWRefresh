@@ -26,10 +26,14 @@
 @property (nonatomic, assign) UIScrollView* scrollView;
 
 @optional
+/** must implement if used as SWRefreshView default controller class! */
++ (instancetype)newWithHeaderView:(UIView<SWRefreshView>*)headerView model:(SWRefreshHeaderViewModel*)model;
+
 - (void)setHeaderModel:(__kindof SWRefreshHeaderViewModel *)headerModel;
 - (void)setHeaderView:(__kindof UIView<SWRefreshView> *)headerView;
 /** offset for pos headerView */
 @property (nonatomic) CGFloat headerOffset;
+
 
 @end
 
@@ -43,6 +47,9 @@
 @property (nonatomic, assign) UIScrollView* scrollView;
 
 @optional
+/** must implement if used as SWRefreshView default controller class! */
++ (instancetype)newWithFooterView:(UIView<SWRefreshView>*)footerView model:(SWRefreshFooterViewModel*)model;
+
 - (void)setFooterModel:(__kindof SWRefreshFooterViewModel *)footerModel;
 - (void)setFooterView:(__kindof UIView<SWRefreshView> *)footerView;
 
@@ -58,6 +65,8 @@
 
 @interface SWRefreshHeaderController : NSObject <SWRefreshHeaderController>
 
++ (instancetype)newWithHeaderView:(UIView<SWRefreshView>*)headerView model:(SWRefreshHeaderViewModel*)model;
+
 @property (nonatomic, assign) UIScrollView* scrollView;
 @property (nonatomic, strong) __kindof UIView<SWRefreshView>* headerView;
 @property (nonatomic, strong) __kindof SWRefreshHeaderViewModel* headerModel;
@@ -66,6 +75,8 @@
 @end
 
 @interface SWRefreshFooterController : NSObject <SWRefreshFooterController>
+
++ (instancetype)newWithFooterView:(UIView<SWRefreshView>*)footerView model:(SWRefreshFooterViewModel*)model;
 
 @property (nonatomic, assign) UIScrollView* scrollView;
 @property (nonatomic, strong) __kindof UIView<SWRefreshView>* footerView;

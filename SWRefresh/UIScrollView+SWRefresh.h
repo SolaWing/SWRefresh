@@ -14,10 +14,9 @@
 @property (nonatomic, strong) id<SWRefreshHeaderController> refreshHeader;
 @property (nonatomic, strong) id<SWRefreshFooterController> refreshFooter;
 
-@property (nonatomic, strong) __kindof SWRefreshHeaderViewModel* refreshHeaderModel;
-@property (nonatomic, strong) __kindof SWRefreshFooterViewModel* refreshFooterModel;
-/** 设置时可能会创建默认的controller, 使用view的model */
-@property (nonatomic, strong) __kindof UIView<SWRefreshView>* refreshHeaderView;
-@property (nonatomic, strong) __kindof UIView<SWRefreshView>* refreshFooterView;
+@property (nonatomic, strong, readonly) __kindof SWRefreshHeaderViewModel* refreshHeaderModel;
+@property (nonatomic, strong, readonly) __kindof SWRefreshFooterViewModel* refreshFooterModel;
+@property (nonatomic, strong, readonly) __kindof UIView<SWRefreshView>* refreshHeaderView;
+@property (nonatomic, strong, readonly) __kindof UIView<SWRefreshView>* refreshFooterView;
 
 @end

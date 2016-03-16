@@ -45,7 +45,7 @@
                 [weak_tableView reloadData];
         });
     };
-    tableView.refreshHeaderView = [SWRefreshHeaderView headerWithRefreshingBlock:block];
+    tableView.refreshHeader = [SWRefreshHeaderView headerWithRefreshingBlock:block];
     block =^(void){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2* NSEC_PER_SEC),
             dispatch_get_main_queue(), ^{
@@ -60,7 +60,7 @@
                 }
         });
     };
-    tableView.refreshFooterView = [SWRefreshFooterView footerWithRefreshingBlock:block];
+    tableView.refreshFooter = [SWRefreshFooterView footerWithRefreshingBlock:block];
 
     tableView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0);
     tableView.refreshHeader.headerOffset = 50;

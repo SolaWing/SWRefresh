@@ -16,9 +16,13 @@
 }
 
 - (void)setRefreshHeader:(id<SWRefreshHeaderController>)refreshHeader {
-    objc_setAssociatedObject(self, @selector(refreshHeader), refreshHeader, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    if (refreshHeader) {
-        refreshHeader.scrollView = self;
+    id<SWRefreshHeaderController> oldHeader = self.refreshHeader;
+    if (oldHeader != refreshHeader) {
+        if (oldHeader) { oldHeader.scrollView = nil; }
+        objc_setAssociatedObject(self, @selector(refreshHeader), refreshHeader, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        if (refreshHeader) {
+            refreshHeader.scrollView = self;
+        }
     }
 }
 
@@ -27,9 +31,13 @@
 }
 
 - (void)setRefreshFooter:(id<SWRefreshFooterController>)refreshFooter {
-    objc_setAssociatedObject(self, @selector(refreshFooter), refreshFooter, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    if (refreshFooter) {
-        refreshFooter.scrollView = self;
+    id<SWRefreshFooterController> oldFooter = self.refreshFooter;
+    if (oldFooter != refreshFooter) {
+        if (oldFooter) { oldFooter.scrollView = nil; }
+        objc_setAssociatedObject(self, @selector(refreshFooter), refreshFooter, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        if (refreshFooter) {
+            refreshFooter.scrollView = self;
+        }
     }
 }
 
@@ -46,34 +54,4 @@
     [self.refreshFooter setFooterModel:refreshFooterModel];
 }
 
-- (void)setRefreshHeaderView:(__kindof UIView<SWRefreshView> *)refreshHeaderView {
-    id<SWRefreshHeaderController> controller = self.refreshHeader;
-    if (!refreshHeaderView) {
-        [controller setHeaderView:nil];
-        return;
-    }
-    if (!controller) {
-        controller = [[refreshHeaderView.class defaultHeaderControllerClass] new];
-        self.refreshHeader = controller;
-    }
-    [controller setHeaderModel:(id)refreshHeaderView.sourceViewModel];
-    [controller setHeaderView:refreshHeaderView];
-}
-
-- (void)setRefreshFooterView:(__kindof UIView<SWRefreshView> *)refreshFooterView {
-    id<SWRefreshFooterController> controller = self.refreshFooter;
-    if (!refreshFooterView) {
-        [controller setFooterView:nil];
-        return;
-    }
-    if (!controller) {
-        controller = [[refreshFooterView.class defaultFooterControllerClass] new];
-        self.refreshFooter = controller;
-    }
-    [controller setFooterModel:(id)refreshFooterView.sourceViewModel];
-    [controller setFooterView:refreshFooterView];
-}
-
-+ (Class)defaultRefreshHeaderClass { return [SWRefreshHeaderController class]; }
-+ (Class)defaultRefreshFooterClass { return [SWRefreshFooterController class]; }
 @end

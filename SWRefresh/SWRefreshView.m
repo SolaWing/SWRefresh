@@ -22,17 +22,19 @@
 + (Class)defaultHeaderControllerClass { return [SWRefreshHeaderController class]; }
 + (Class)defaultFooterControllerClass { return [SWRefreshFooterController class]; }
 
-+ (instancetype)headerWithRefreshingBlock:(dispatch_block_t)block {
++ (id<SWRefreshHeaderController>)headerWithRefreshingBlock:(dispatch_block_t)block {
     SWRefreshView* headerView = [self new];
     SWRefreshHeaderViewModel* headerModel = [[self defaultHeaderViewModelClass] new];
     headerModel.refreshThreshold = headerView.frame.size.height;
     headerModel.refreshingBlock = block;
 
     headerView.sourceViewModel = headerModel;
-    return headerView;
+
+    return [[self defaultHeaderControllerClass]
+        newWithHeaderView:headerView model:headerModel];
 }
 
-+ (instancetype)headerWithRefreshingTarget:(id)target action:(SEL)action {
++ (id<SWRefreshHeaderController>)headerWithRefreshingTarget:(id)target action:(SEL)action {
     SWRefreshView* headerView = [self new];
     SWRefreshHeaderViewModel* headerModel = [[self defaultHeaderViewModelClass] new];
     headerModel.refreshThreshold = headerView.frame.size.height;
@@ -40,20 +42,24 @@
     headerModel.refreshAction = action;
 
     headerView.sourceViewModel = headerModel;
-    return headerView;
+
+    return [[self defaultHeaderControllerClass]
+        newWithHeaderView:headerView model:headerModel];
 }
 
-+ (instancetype)footerWithRefreshingBlock:(dispatch_block_t)block {
++ (id<SWRefreshFooterController>)footerWithRefreshingBlock:(dispatch_block_t)block {
     SWRefreshView* footerView = [self new];
     SWRefreshFooterViewModel* footerModel = [[self defaultFooterViewModelClass] new];
     footerModel.refreshThreshold = footerView.frame.size.height;
     footerModel.refreshingBlock = block;
 
     footerView.sourceViewModel = footerModel;
-    return footerView;
+
+    return [[self defaultFooterControllerClass]
+        newWithFooterView:footerView model:footerModel];
 }
 
-+ (instancetype)footerWithRefreshingTarget:(id)target action:(SEL)action {
++ (id<SWRefreshFooterController>)footerWithRefreshingTarget:(id)target action:(SEL)action {
     SWRefreshView* footerView = [self new];
     SWRefreshFooterViewModel* footerModel = [[self defaultFooterViewModelClass] new];
     footerModel.refreshThreshold = footerView.frame.size.height;
@@ -61,7 +67,9 @@
     footerModel.refreshAction = action;
 
     footerView.sourceViewModel = footerModel;
-    return footerView;
+
+    return [[self defaultFooterControllerClass]
+        newWithFooterView:footerView model:footerModel];
 }
 
 

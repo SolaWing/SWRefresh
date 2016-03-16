@@ -14,6 +14,13 @@
     self.scrollView = nil;
 }
 
++ (instancetype)newWithHeaderView:(UIView<SWRefreshView> *)headerView model:(SWRefreshHeaderViewModel *)model {
+    SWRefreshHeaderController* ctrl = [self new];
+    ctrl->_headerView = headerView;
+    ctrl->_headerModel = model;
+    return ctrl;
+}
+
 - (void)setScrollView:(UIScrollView *)scrollView {
     if (_scrollView != scrollView) {
         _scrollView = scrollView;
@@ -45,7 +52,6 @@
         }
         _headerView = headerView;
         if (_headerView) {
-            _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             [self layoutHeaderView];
         }
     }
@@ -53,6 +59,7 @@
 
 - (void)layoutHeaderView {
     if (_scrollView) {
+        _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [_scrollView insertSubview:_headerView atIndex:0];
         [self updateHeaderViewFrame];
     } else {
@@ -84,6 +91,13 @@
 
 - (void)dealloc {
     self.scrollView = nil;
+}
+
++ (instancetype)newWithFooterView:(UIView<SWRefreshView> *)footerView model:(SWRefreshFooterViewModel *)model {
+    SWRefreshFooterController* ctrl = [self new];
+    ctrl->_footerView = footerView;
+    ctrl->_footerModel = model;
+    return ctrl;
 }
 
 - (instancetype)init {
@@ -131,7 +145,6 @@
         }
         _footerView = footerView;
         if (_footerView) {
-            _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             [self layoutFooterView];
         }
     }
@@ -139,6 +152,7 @@
 
 - (void)layoutFooterView {
     if (_scrollView) {
+        _footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [_scrollView insertSubview:_footerView atIndex:0];
         [self updateFooterViewFrame];
         _footerView.hidden = ![self isFooterVisible];

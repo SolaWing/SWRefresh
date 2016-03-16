@@ -27,6 +27,12 @@
 + (id<SWRefreshFooterController>)footerWithRefreshingBlock:(dispatch_block_t)block;
 + (id<SWRefreshFooterController>)footerWithRefreshingTarget:(id)target action:(SEL)action;
 
+/** one shot for create a view and respond ViewModel */
++ (instancetype)newHeaderRefreshingBlock:(dispatch_block_t)block;
++ (instancetype)newHeaderRefreshingTarget:(id)target action:(SEL)action;
++ (instancetype)newFooterRefreshingBlock:(dispatch_block_t)block;
++ (instancetype)newFooterRefreshingTarget:(id)target action:(SEL)action;
+
 @property (nonatomic, strong) SWRefreshViewModel* sourceViewModel;
 
 #pragma mark   Overridable method

@@ -75,9 +75,13 @@ static inline void scrollViewChangeBottomInset(UIScrollView* scrollView, CGFloat
         { return; }
     }
     if (pullingOffsetY < offsetY) {
-        CGPoint oldP = [change[NSKeyValueChangeOldKey] CGPointValue];
-        CGPoint newP = [change[NSKeyValueChangeNewKey] CGPointValue];
-        if (oldP.y >= newP.y) { return; } // 往上划, 不触发
+        CGFloat bounceOffset = self.scrollView.contentSize.height
+            + self.scrollView.contentInset.bottom - self.scrollView.frame.size.height;
+        if (offsetY <= bounceOffset) {
+            CGPoint oldP = [change[NSKeyValueChangeOldKey] CGPointValue];
+            CGPoint newP = [change[NSKeyValueChangeNewKey] CGPointValue];
+            if (oldP.y >= newP.y) { return; } // 往上划, 不触发
+        }
 
         [self beginRefreshing:YES];
     }
@@ -99,9 +103,10 @@ static inline void scrollViewChangeBottomInset(UIScrollView* scrollView, CGFloat
 - (CGFloat)pullingOffsetY {
     UIEdgeInsets inset = self.scrollView.contentInset;
     // 自动触发点在刚显示view, 加上偏移值
-    CGFloat offsetY = self.scrollView.contentSize.height + inset.bottom - _bottomInset
-        - self.scrollView.frame.size.height + _refreshThreshold;
-    CGFloat minOffset = -inset.top + _bottomInset; // 最低触发点离原点有一定距离
+    CGFloat bounceOffset = self.scrollView.contentSize.height
+        + inset.bottom - self.scrollView.frame.size.height;
+    CGFloat offsetY = bounceOffset - _bottomInset + _refreshThreshold;
+    CGFloat minOffset = -inset.top + fmax(_pullingLength, 20); // 最低触发点离原点有一定距离
     if (offsetY < minOffset) { return minOffset; }
 
     return offsetY;

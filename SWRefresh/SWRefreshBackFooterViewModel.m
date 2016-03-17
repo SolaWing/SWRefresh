@@ -79,6 +79,7 @@
 - (CGFloat)happendOffsetY {
     UIEdgeInsets _scrollViewOriginInsets = self.scrollViewOriginInsets;
     CGFloat offsetY = self.scrollView.contentSize.height + _scrollViewOriginInsets.bottom - self.scrollView.frame.size.height;
+    /** the two insetTop may different */
     CGFloat minOffset = -fmin( _scrollViewOriginInsets.top, self.scrollView.contentInset.top );
     if (offsetY < minOffset) { return minOffset; }
 

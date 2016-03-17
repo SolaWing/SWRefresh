@@ -51,10 +51,12 @@ static inline void scrollViewChangeBottomInset(UIScrollView* scrollView, CGFloat
 }
 
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {
+    // use track, don't use drag.
+    // drag became false lately, and may already bounces back, cause won't refreshing.
     if ([self isRefreshing] || (self.pullingLength <= 0 &&
         (!_refreshAutomatically ||
          self.state == SWRefreshStateNoMoreData ||
-         self.scrollView.isDragging)))
+         self.scrollView.isTracking)))
     { return; }
 
     CGFloat pullingOffsetY = [self pullingOffsetY];
@@ -67,7 +69,10 @@ static inline void scrollViewChangeBottomInset(UIScrollView* scrollView, CGFloat
 
         self.pullingPercent = (offsetY - happendOffsetY) / self.pullingLength;
 
-        if (self.scrollView.isDragging || self.state == SWRefreshStateNoMoreData) { return; }
+        if (!_refreshAutomatically ||
+            self.state == SWRefreshStateNoMoreData ||
+            self.scrollView.isTracking)
+        { return; }
     }
     if (pullingOffsetY < offsetY) {
         CGPoint oldP = [change[NSKeyValueChangeOldKey] CGPointValue];

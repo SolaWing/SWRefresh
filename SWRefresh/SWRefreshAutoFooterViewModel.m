@@ -24,17 +24,19 @@
     }
 }
 
-static inline void scrollViewChangeBottomInset(UIScrollView* scrollView, CGFloat deltaBottomInset) {
+static inline void scrollViewChangeBottomInset(SWRefreshViewModel* model, UIScrollView* scrollView, CGFloat deltaBottomInset) {
     if (deltaBottomInset == 0) return;
     UIEdgeInsets inset = scrollView.contentInset;
     inset.bottom += deltaBottomInset;
-    scrollView.contentInset = inset;
+    // SWRefreshViewModel inner should always use setScrollViewTempInset, to avoid
+    // override scrollViewOriginInsets when already set a tempinset like top
+    [model setScrollViewTempInset:inset];
 }
 
 - (void)setBottomInset:(CGFloat)bottomInset {
     if (bottomInset != _bottomInset) {
         if (self.scrollView) {
-            scrollViewChangeBottomInset(self.scrollView, bottomInset - _bottomInset);
+            scrollViewChangeBottomInset(self, self.scrollView, bottomInset - _bottomInset);
         }
         _bottomInset = bottomInset;
     }
@@ -42,12 +44,12 @@ static inline void scrollViewChangeBottomInset(UIScrollView* scrollView, CGFloat
 
 - (void)bindScrollView:(UIScrollView *)scrollView {
     [super bindScrollView:scrollView];
-    scrollViewChangeBottomInset(scrollView, _bottomInset);
+    scrollViewChangeBottomInset(self, scrollView, _bottomInset);
 }
 
 - (void)unbindScrollView:(UIScrollView *)scrollView {
     [super unbindScrollView:scrollView];
-    scrollViewChangeBottomInset(scrollView, -_bottomInset);
+    scrollViewChangeBottomInset(self, scrollView, -_bottomInset);
 }
 
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {

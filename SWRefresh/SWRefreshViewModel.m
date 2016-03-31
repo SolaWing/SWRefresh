@@ -149,10 +149,15 @@ static char TempInsetKey;
 - (void)setScrollViewTempInset:(UIEdgeInsets)inset {
     UIScrollView* scrollView = self.scrollView;
     if (scrollView) {
-        id value = @YES;
-        objc_setAssociatedObject(scrollView, &TempInsetKey, value, OBJC_ASSOCIATION_ASSIGN);
-        scrollView.contentInset = inset;
-        objc_setAssociatedObject(scrollView, &TempInsetKey, nil, OBJC_ASSOCIATION_ASSIGN);
+        if ([self isSettingTempInset]) {
+            // sometimes KVO change inset
+            scrollView.contentInset = inset;
+        } else {
+            id value = @YES;
+            objc_setAssociatedObject(scrollView, &TempInsetKey, value, OBJC_ASSOCIATION_ASSIGN);
+            scrollView.contentInset = inset;
+            objc_setAssociatedObject(scrollView, &TempInsetKey, nil, OBJC_ASSOCIATION_ASSIGN);
+        }
     }
 }
 

@@ -63,6 +63,15 @@
     tableView.refreshFooter = [SWRefreshFooterView footerWithRefreshingBlock:block];
 
     tableView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0);
+    CGRect frame = tableView.bounds;
+    frame.origin.y = -50;
+    frame.size.height = 50;
+    UILabel* insetTopLabel = [[UILabel alloc] initWithFrame:frame];
+    insetTopLabel.backgroundColor = [UIColor greenColor];
+    insetTopLabel.text = @"this is inset top placeholder!";
+    insetTopLabel.textAlignment = NSTextAlignmentCenter;
+    [tableView addSubview:insetTopLabel];
+
     tableView.refreshHeader.headerOffset = 50;
 }
 

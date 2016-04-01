@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		216D45041CAE068900492F40 /* SWRefreshExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 216D45031CAE068900492F40 /* SWRefreshExampleUITests.m */; };
+		216D45211CAE25E800492F40 /* SWRefreshExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 216D45201CAE25E800492F40 /* SWRefreshExampleTests.m */; };
 		217499351C34D6EF00399768 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 217499341C34D6EF00399768 /* main.m */; };
 		217499381C34D6EF00399768 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 217499371C34D6EF00399768 /* AppDelegate.m */; };
 		2174993B1C34D6EF00399768 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2174993A1C34D6EF00399768 /* ViewController.m */; };
@@ -28,6 +30,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		216D45061CAE068900492F40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 217499191C34D6D500399768 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 217499301C34D6EF00399768;
+			remoteInfo = SWRefreshExample;
+		};
+		216D45231CAE25E800492F40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 217499191C34D6D500399768 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 217499301C34D6EF00399768;
+			remoteInfo = SWRefreshExample;
+		};
 		217499481C34D6FD00399768 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 217499191C34D6D500399768 /* Project object */;
@@ -50,6 +66,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		216D45011CAE068900492F40 /* SWRefreshExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SWRefreshExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		216D45031CAE068900492F40 /* SWRefreshExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SWRefreshExampleUITests.m; sourceTree = "<group>"; };
+		216D45051CAE068900492F40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		216D451E1CAE25E800492F40 /* SWRefreshExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SWRefreshExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		216D45201CAE25E800492F40 /* SWRefreshExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SWRefreshExampleTests.m; sourceTree = "<group>"; };
+		216D45221CAE25E800492F40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		217499211C34D6D500399768 /* libSWRefresh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSWRefresh.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		217499311C34D6EF00399768 /* SWRefreshExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SWRefreshExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		217499341C34D6EF00399768 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -86,6 +108,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		216D44FE1CAE068900492F40 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		216D451B1CAE25E800492F40 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2174991E1C34D6D500399768 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -104,11 +140,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		216D45021CAE068900492F40 /* SWRefreshExampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				216D45031CAE068900492F40 /* SWRefreshExampleUITests.m */,
+				216D45051CAE068900492F40 /* Info.plist */,
+			);
+			path = SWRefreshExampleUITests;
+			sourceTree = "<group>";
+		};
+		216D451F1CAE25E800492F40 /* SWRefreshExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				216D45201CAE25E800492F40 /* SWRefreshExampleTests.m */,
+				216D45221CAE25E800492F40 /* Info.plist */,
+			);
+			path = SWRefreshExampleTests;
+			sourceTree = "<group>";
+		};
 		217499181C34D6D500399768 = {
 			isa = PBXGroup;
 			children = (
 				217499231C34D6D500399768 /* SWRefresh */,
 				217499321C34D6EF00399768 /* SWRefreshExample */,
+				216D45021CAE068900492F40 /* SWRefreshExampleUITests */,
+				216D451F1CAE25E800492F40 /* SWRefreshExampleTests */,
 				217499221C34D6D500399768 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,6 +174,8 @@
 			children = (
 				217499211C34D6D500399768 /* libSWRefresh.a */,
 				217499311C34D6EF00399768 /* SWRefreshExample.app */,
+				216D45011CAE068900492F40 /* SWRefreshExampleUITests.xctest */,
+				216D451E1CAE25E800492F40 /* SWRefreshExampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -218,6 +276,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		216D45001CAE068900492F40 /* SWRefreshExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 216D450A1CAE068900492F40 /* Build configuration list for PBXNativeTarget "SWRefreshExampleUITests" */;
+			buildPhases = (
+				216D44FD1CAE068900492F40 /* Sources */,
+				216D44FE1CAE068900492F40 /* Frameworks */,
+				216D44FF1CAE068900492F40 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				216D45071CAE068900492F40 /* PBXTargetDependency */,
+			);
+			name = SWRefreshExampleUITests;
+			productName = SWRefreshExampleUITests;
+			productReference = 216D45011CAE068900492F40 /* SWRefreshExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		216D451D1CAE25E800492F40 /* SWRefreshExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 216D45251CAE25E800492F40 /* Build configuration list for PBXNativeTarget "SWRefreshExampleTests" */;
+			buildPhases = (
+				216D451A1CAE25E800492F40 /* Sources */,
+				216D451B1CAE25E800492F40 /* Frameworks */,
+				216D451C1CAE25E800492F40 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				216D45241CAE25E800492F40 /* PBXTargetDependency */,
+			);
+			name = SWRefreshExampleTests;
+			productName = SWRefreshExampleTests;
+			productReference = 216D451E1CAE25E800492F40 /* SWRefreshExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		217499201C34D6D500399768 /* SWRefresh */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2174992A1C34D6D500399768 /* Build configuration list for PBXNativeTarget "SWRefresh" */;
@@ -262,6 +356,14 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = SW;
 				TargetAttributes = {
+					216D45001CAE068900492F40 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 217499301C34D6EF00399768;
+					};
+					216D451D1CAE25E800492F40 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 217499301C34D6EF00399768;
+					};
 					217499201C34D6D500399768 = {
 						CreatedOnToolsVersion = 7.1.1;
 					};
@@ -286,11 +388,27 @@
 			targets = (
 				217499201C34D6D500399768 /* SWRefresh */,
 				217499301C34D6EF00399768 /* SWRefreshExample */,
+				216D45001CAE068900492F40 /* SWRefreshExampleUITests */,
+				216D451D1CAE25E800492F40 /* SWRefreshExampleTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		216D44FF1CAE068900492F40 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		216D451C1CAE25E800492F40 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2174992F1C34D6EF00399768 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -304,6 +422,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		216D44FD1CAE068900492F40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				216D45041CAE068900492F40 /* SWRefreshExampleUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		216D451A1CAE25E800492F40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				216D45211CAE25E800492F40 /* SWRefreshExampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2174991D1C34D6D500399768 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -335,6 +469,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		216D45071CAE068900492F40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 217499301C34D6EF00399768 /* SWRefreshExample */;
+			targetProxy = 216D45061CAE068900492F40 /* PBXContainerItemProxy */;
+		};
+		216D45241CAE25E800492F40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 217499301C34D6EF00399768 /* SWRefreshExample */;
+			targetProxy = 216D45231CAE25E800492F40 /* PBXContainerItemProxy */;
+		};
 		217499491C34D6FD00399768 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 217499201C34D6D500399768 /* SWRefresh */;
@@ -362,6 +506,58 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		216D45081CAE068900492F40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SWRefreshExampleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = SW.SWRefreshExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = SWRefreshExample;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		216D45091CAE068900492F40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SWRefreshExampleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = SW.SWRefreshExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = SWRefreshExample;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+		216D45261CAE25E800492F40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SWRefreshExampleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = SW.SWRefreshExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SWRefreshExample.app/SWRefreshExample";
+			};
+			name = Debug;
+		};
+		216D45271CAE25E800492F40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SWRefreshExampleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = SW.SWRefreshExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SWRefreshExample.app/SWRefreshExample";
+			};
+			name = Release;
+		};
 		217499281C34D6D500399768 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -487,6 +683,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		216D450A1CAE068900492F40 /* Build configuration list for PBXNativeTarget "SWRefreshExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				216D45081CAE068900492F40 /* Debug */,
+				216D45091CAE068900492F40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		216D45251CAE25E800492F40 /* Build configuration list for PBXNativeTarget "SWRefreshExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				216D45261CAE25E800492F40 /* Debug */,
+				216D45271CAE25E800492F40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		2174991C1C34D6D500399768 /* Build configuration list for PBXProject "SWRefresh" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

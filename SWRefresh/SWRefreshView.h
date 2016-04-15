@@ -22,15 +22,15 @@
 + (Class)defaultFooterControllerClass; ///< default use SWRefreshFooterController
 
 /** one shot for create controller, view and ViewModel and bind them */
-+ (id<SWRefreshHeaderController>)headerWithRefreshingBlock:(dispatch_block_t)block;
++ (id<SWRefreshHeaderController>)headerWithRefreshingBlock:(SWRefreshingBlock)block;
 + (id<SWRefreshHeaderController>)headerWithRefreshingTarget:(id)target action:(SEL)action;
-+ (id<SWRefreshFooterController>)footerWithRefreshingBlock:(dispatch_block_t)block;
++ (id<SWRefreshFooterController>)footerWithRefreshingBlock:(SWRefreshingBlock)block;
 + (id<SWRefreshFooterController>)footerWithRefreshingTarget:(id)target action:(SEL)action;
 
 /** one shot for create a view and respond ViewModel */
-+ (instancetype)newHeaderRefreshingBlock:(dispatch_block_t)block;
++ (instancetype)newHeaderRefreshingBlock:(SWRefreshingBlock)block;
 + (instancetype)newHeaderRefreshingTarget:(id)target action:(SEL)action;
-+ (instancetype)newFooterRefreshingBlock:(dispatch_block_t)block;
++ (instancetype)newFooterRefreshingBlock:(SWRefreshingBlock)block;
 + (instancetype)newFooterRefreshingTarget:(id)target action:(SEL)action;
 
 @property (nonatomic, strong) SWRefreshViewModel* sourceViewModel;

@@ -105,7 +105,7 @@
 
 - (void)executeRefreshingCallback {
     __unsafe_unretained dispatch_block_t block = ^{
-        if (self.refreshingBlock) { self.refreshingBlock(); }
+        if (self.refreshingBlock) { self.refreshingBlock(self); }
         id target = self.refreshTarget;
         if ([target respondsToSelector:self.refreshAction]) {
             #pragma clang diagnostic push

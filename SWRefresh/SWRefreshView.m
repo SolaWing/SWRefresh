@@ -22,7 +22,7 @@
 + (Class)defaultHeaderControllerClass { return [SWRefreshHeaderController class]; }
 + (Class)defaultFooterControllerClass { return [SWRefreshFooterController class]; }
 
-+ (instancetype)newHeaderRefreshingBlock:(dispatch_block_t)block {
++ (instancetype)newHeaderRefreshingBlock:(SWRefreshingBlock)block {
     SWRefreshView* headerView = [self new];
 
     SWRefreshHeaderViewModel* headerModel = [[self defaultHeaderViewModelClass] new];
@@ -45,7 +45,7 @@
     return headerView;
 }
 
-+ (instancetype)newFooterRefreshingBlock:(dispatch_block_t)block {
++ (instancetype)newFooterRefreshingBlock:(SWRefreshingBlock)block {
     SWRefreshView* footerView = [self new];
 
     SWRefreshFooterViewModel* footerModel = [[self defaultFooterViewModelClass] new];
@@ -68,7 +68,7 @@
     return footerView;
 }
 
-+ (id<SWRefreshHeaderController>)headerWithRefreshingBlock:(dispatch_block_t)block {
++ (id<SWRefreshHeaderController>)headerWithRefreshingBlock:(SWRefreshingBlock)block {
     SWRefreshView* view = [self newHeaderRefreshingBlock:block];
     return [[self defaultHeaderControllerClass]
         newWithHeaderView:view model:(id)view.sourceViewModel];
@@ -80,7 +80,7 @@
         newWithHeaderView:view model:(id)view.sourceViewModel];
 }
 
-+ (id<SWRefreshFooterController>)footerWithRefreshingBlock:(dispatch_block_t)block {
++ (id<SWRefreshFooterController>)footerWithRefreshingBlock:(SWRefreshingBlock)block {
     SWRefreshView* view = [self newFooterRefreshingBlock:block];
     return [[self defaultFooterControllerClass]
         newWithFooterView:view model:(id)view.sourceViewModel];

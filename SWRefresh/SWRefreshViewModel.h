@@ -21,22 +21,25 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 
 };
 
+@class SWRefreshViewModel;
+typedef void(^SWRefreshingBlock)(__kindof SWRefreshViewModel* _Nonnull viewModel);
+
 /** Refresh基类, 不要直接使用.
  * 该类用来管理刷新状态和ScrollView相关刷新状态
  * 并做为相应View的数据源 */
 @interface SWRefreshViewModel : NSObject
 
 /** 使用assign确保deallocing时, scrollView仍然有效 */
-@property (nonatomic, assign) UIScrollView* scrollView;
+@property (nonatomic, assign, nullable) UIScrollView* scrollView;
 @property (nonatomic, assign) UIEdgeInsets scrollViewOriginInsets;
 
 #pragma mark 回调
 /** 正在刷新的回调 */
-@property (nonatomic, copy) dispatch_block_t refreshingBlock;
+@property (nonatomic, copy, nonnull) SWRefreshingBlock refreshingBlock;
 /** 设置回调对象和回调方法 */
-- (void)setRefreshingTarget:(id)target refreshingAction:(SEL)action;
+- (void)setRefreshingTarget:(nullable id)target refreshingAction:(nullable SEL)action;
 @property (nonatomic, weak) id refreshTarget;
-@property (nonatomic, assign) SEL refreshAction;
+@property (nonatomic, assign, nullable) SEL refreshAction;
 - (void)executeRefreshingCallback;
 
 #pragma mark 状态
@@ -45,15 +48,15 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 - (void)beginRefreshing:(BOOL)animated;
 #define SWRefreshSourceUserToken nil
 /** 进入刷新状态, source可用来区分触发刷新来源, 该值可以通过beginRefreshingSource得到 */
-- (void)beginRefreshing:(BOOL)animated source:(id)source;
+- (void)beginRefreshing:(BOOL)animated source:(nullable id)source;
 
 /** 结束刷新状态, 默认原因 SWRefreshEndRefreshSuccessToken */
 - (void)endRefreshing:(BOOL)animated;
 #define SWRefreshEndRefreshSuccessToken nil
 /** 结束刷新状态并设置结束原因, reason可通过endRefreshingReason得到 */
-- (void)endRefreshing:(BOOL)animated reason:(id)reason;
+- (void)endRefreshing:(BOOL)animated reason:(nullable id)reason;
 /** 结束刷新状态并设置结束状态和原因 */
-- (void)endRefreshingWithState:(SWRefreshState)state animated:(BOOL)animated reason:(id)reason;
+- (void)endRefreshingWithState:(SWRefreshState)state animated:(BOOL)animated reason:(nullable id)reason;
 
 /** 是否正在刷新 */
 @property (nonatomic, readonly, getter=isRefreshing) BOOL refreshing;
@@ -65,22 +68,22 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 
 
 /** a dictionary use to save userInfo */
-@property (nonatomic, strong, readonly) NSMutableDictionary* userInfo;
+@property (nonatomic, strong, readonly, nonnull) NSMutableDictionary* userInfo;
 @property (nonatomic, getter=isAnimating, readonly) BOOL animating;
-@property (nonatomic, strong) id beginRefreshingSource;
-@property (nonatomic, strong) id endRefreshingReason;
+@property (nonatomic, strong, nullable) id beginRefreshingSource;
+@property (nonatomic, strong, nullable) id endRefreshingReason;
 /** customizable duration of end refreshing animation */
 @property (nonatomic) NSTimeInterval endRefreshingAnimationDuration;
 
 
 #pragma mark 可覆盖方法
 - (void)initialize  NS_REQUIRES_SUPER;
-- (void)scrollViewContentOffsetDidChange:(NSDictionary *)change;
+- (void)scrollViewContentOffsetDidChange:(nonnull NSDictionary *)change;
 /** default imp check and change scrollViewOriginInsets */
-- (void)scrollViewContentInsetDidChange:(NSDictionary *)change;
+- (void)scrollViewContentInsetDidChange:(nonnull NSDictionary *)change;
 - (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState;
-- (void)bindScrollView:(UIScrollView*)scrollView NS_REQUIRES_SUPER;
-- (void)unbindScrollView:(UIScrollView*)scrollView NS_REQUIRES_SUPER;
+- (void)bindScrollView:(nonnull UIScrollView*)scrollView NS_REQUIRES_SUPER;
+- (void)unbindScrollView:(nonnull UIScrollView*)scrollView NS_REQUIRES_SUPER;
 
 #pragma mark 子类或相关类调用方法
 /** set scrollView inset without change SWRefreshViewModels scrollViewOriginInsets
@@ -94,17 +97,17 @@ typedef NS_ENUM(NSInteger, SWRefreshState) {
 @protocol SWRefreshView
 
 @required
-@property (nonatomic, strong) SWRefreshViewModel* sourceViewModel;
+@property (nonatomic, strong, nullable) SWRefreshViewModel* sourceViewModel;
 
 @optional
 /** return default headerViewModelClass. used when need to create one. */
-+ (Class)defaultHeaderViewModelClass;
++ (nonnull Class)defaultHeaderViewModelClass;
 /** return default footerViewModelClass. used when need to create one. */
-+ (Class)defaultFooterViewModelClass;
++ (nonnull Class)defaultFooterViewModelClass;
 
 /** return default id<SWRefreshHeaderController> class. used when need to create one. */
-+ (Class)defaultHeaderControllerClass;
++ (nonnull Class)defaultHeaderControllerClass;
 /** return default id<SWRefreshFooterController> class. used when need to create one. */
-+ (Class)defaultFooterControllerClass;
++ (nonnull Class)defaultFooterControllerClass;
 
 @end

@@ -35,7 +35,7 @@
 
     __weak typeof(self) weak_self = self;
     __weak typeof(tableView) weak_tableView = tableView;
-    id block =^(void){
+    SWRefreshingBlock block = ^(SWRefreshViewModel* model){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2* NSEC_PER_SEC),
             dispatch_get_main_queue(), ^{
                 for (int i = 0; i < 3; ++i) {
@@ -46,7 +46,7 @@
         });
     };
     tableView.refreshHeader = [SWRefreshHeaderView headerWithRefreshingBlock:block];
-    block =^(void){
+    block =^(SWRefreshViewModel* model){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2* NSEC_PER_SEC),
             dispatch_get_main_queue(), ^{
                 for (int i = 0; i < 3; ++i) {

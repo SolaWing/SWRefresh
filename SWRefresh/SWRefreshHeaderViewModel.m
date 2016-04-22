@@ -73,6 +73,12 @@
         UIEdgeInsets inset = self.scrollView.contentInset;
         inset.top = _refreshThreshold + self.scrollViewOriginInsets.top;
         [self setScrollViewTempInset:inset];
+
+        if (_scrollsToTopWhenRefreshing) {
+            CGPoint p = self.scrollView.contentOffset;
+            p.y = -inset.top;
+            self.scrollView.contentOffset = p;
+        }
     }
 }
 

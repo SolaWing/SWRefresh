@@ -11,5 +11,6 @@
 @interface SWRefreshHeaderViewModel : SWRefreshViewModel
 
 @property (nonatomic, assign) CGFloat refreshThreshold; ///< amout scrollView need to beyond
+@property (nonatomic) bool scrollsToTopWhenRefreshing; ///< whether scrollToTop when enter refreshing, default NO
 
 @end

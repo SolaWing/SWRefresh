@@ -1,15 +1,15 @@
 //
-//  SWRefreshFooterViewModel.h
+//  SWRefreshFooterController.h
 //  SWRefresh
 //
 //  Created by SolaWing on 15/12/31.
 //  Copyright © 2015年 SW. All rights reserved.
 //
 
-#import "SWRefreshViewModel.h"
+#import "SWRefreshController.h"
 
-/** base class of footerViewModel, use back footerViewModel or AutoFooterViewModel instead*/
-@interface SWRefreshFooterViewModel : SWRefreshViewModel
+/** base class of footerController, use back footerController or AutoFooterController instead*/
+@interface SWRefreshFooterController : SWRefreshController
 {
     CGFloat _refreshThreshold;
 }

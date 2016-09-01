@@ -92,6 +92,7 @@
         newWithFooterView:view model:(id)view.sourceViewModel];
 }
 
++ (CGFloat)animationDuration { return 0.25; }
 
 - (void)setSourceViewModel:(SWRefreshViewModel *)sourceViewModel {
     if (_sourceViewModel != sourceViewModel) {
@@ -117,12 +118,26 @@
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSString *,id> *)change context:(nullable void *)context {
     if (context == @"state") {
-        SWRefreshState old = [change[NSKeyValueChangeOldKey] integerValue];
-        SWRefreshState new = [change[NSKeyValueChangeNewKey] integerValue];
-        if (old != new) { [self changeFromState:old to:new]; }
+        SWRefreshState o = [change[NSKeyValueChangeOldKey] integerValue];
+        SWRefreshState n = [change[NSKeyValueChangeNewKey] integerValue];
+        if (o != n) {
+            if (self.sourceViewModel.hasAnimation) {
+                [UIView animateWithDuration:[self.class animationDuration] delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^(void){
+                    [self changeFromState:o to:n];
+                } completion:nil];
+            } else {
+                [self changeFromState:o to:n];
+            }
+        }
     } else if (context == @"pullingPercent") {
         CGFloat pullingPercent = [change[NSKeyValueChangeNewKey] floatValue];
-        [self changePullingPercent:pullingPercent];
+        if (self.sourceViewModel.hasAnimation) {
+            [UIView animateWithDuration:[self.class animationDuration] delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^(void){
+                [self changePullingPercent:pullingPercent];
+            } completion:nil];
+        } else {
+            [self changePullingPercent:pullingPercent];
+        }
     }
 }
 

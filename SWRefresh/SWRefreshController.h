@@ -1,91 +1,42 @@
 //
-//  SWRefreshController.h
+//  SWRefreshViewController.h
 //  SWRefresh
 //
-//  Created by SolaWing on 16/3/14.
+//  Created by SolaWing on 16/8/25.
 //  Copyright © 2016年 SW. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
+#import "SWRefreshViewModel.h"
+// #import "SWRefreshLayouter.h"
 #import "SWRefreshView.h"
-#import "SWRefreshHeaderViewModel.h"
-#import "SWRefreshFooterViewModel.h"
 
-#pragma mark - Protocol
+/** 该类是对ScrollView的扩展, 用于控制ScrollView的刷新行为并更新状态 */
+@interface SWRefreshController : NSObject
 
-/** 该类用于控制要使用哪种View和ViewModel, 并管理View在scrollView中如何放置
- * 该类被相应的ScrollView拥有 */
-@protocol SWRefreshHeaderController <NSObject>
+/** 使用assign确保deallocing时, scrollView仍然有效 */
+@property (nonatomic, assign, nullable) UIScrollView* scrollView;
+@property (nonatomic, assign) UIEdgeInsets scrollViewOriginInsets;
+@property (nonatomic, strong, nullable) id<SWRefreshViewModel> model;
 
-@required
-- (__kindof UIView<SWRefreshView>*)headerView;
-- (__kindof SWRefreshHeaderViewModel*)headerModel;
-/** this object owned by the scrollView, and the scrollView set this property
- * you may need to chain this property to ViewModel */
-@property (nonatomic, assign) UIScrollView* scrollView;
+@property (nonatomic, strong) UIView<SWRefreshView>* view;
 
-@optional
-/** must implement if used as SWRefreshView default controller class! */
-+ (instancetype)newWithHeaderView:(UIView<SWRefreshView>*)headerView model:(SWRefreshHeaderViewModel*)model;
+#pragma mark 可覆盖方法
+- (void)initialize  NS_REQUIRES_SUPER;
+- (void)scrollViewContentOffsetDidChange:(nonnull NSDictionary *)change;
+/** default imp check and change scrollViewOriginInsets */
+- (void)scrollViewContentInsetDidChange:(nonnull NSDictionary *)change;
+- (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState;
+- (void)bindScrollView:(nonnull UIScrollView*)scrollView NS_REQUIRES_SUPER;
+- (void)unbindScrollView:(nonnull UIScrollView*)scrollView NS_REQUIRES_SUPER;
 
-- (void)setHeaderModel:(__kindof SWRefreshHeaderViewModel *)headerModel;
-- (void)setHeaderView:(__kindof UIView<SWRefreshView> *)headerView;
-/** offset for pos headerView */
-@property (nonatomic) CGFloat headerOffset;
+#pragma mark 子类或相关类调用方法
+/** set scrollView inset without change scrollViewOriginInsets */
+- (void)setScrollViewTempInset:(UIEdgeInsets)inset;
 
-
-@end
-
-@protocol SWRefreshFooterController <NSObject>
-
-@required
-- (__kindof UIView<SWRefreshView>*)footerView;
-- (__kindof SWRefreshFooterViewModel*)footerModel;
-/** this object owned by the scrollView, and the scrollView set this property
- * you may need to chain this property to ViewModel */
-@property (nonatomic, assign) UIScrollView* scrollView;
-
-@optional
-/** must implement if used as SWRefreshView default controller class! */
-+ (instancetype)newWithFooterView:(UIView<SWRefreshView>*)footerView model:(SWRefreshFooterViewModel*)model;
-
-- (void)setFooterModel:(__kindof SWRefreshFooterViewModel *)footerModel;
-- (void)setFooterView:(__kindof UIView<SWRefreshView> *)footerView;
-
-/** offset for pos footerView */
-@property (nonatomic) CGFloat footerOffset;
-@property (nonatomic) CGFloat footerVisibleThreshold;
-@property (nonatomic) bool hideWhenNoMore;
-
-@end
-
-
-#pragma mark - Class
-
-@interface SWRefreshHeaderController : NSObject <SWRefreshHeaderController>
-
-+ (instancetype)newWithHeaderView:(UIView<SWRefreshView>*)headerView model:(SWRefreshHeaderViewModel*)model;
-
-@property (nonatomic, assign) UIScrollView* scrollView;
-@property (nonatomic, strong) __kindof UIView<SWRefreshView>* headerView;
-@property (nonatomic, strong) __kindof SWRefreshHeaderViewModel* headerModel;
-@property (nonatomic) CGFloat headerOffset;     ///< insetTop for headerView, positive offset make headerView move to top
-
-@end
-
-@interface SWRefreshFooterController : NSObject <SWRefreshFooterController>
-
-+ (instancetype)newWithFooterView:(UIView<SWRefreshView>*)footerView model:(SWRefreshFooterViewModel*)model;
-
-@property (nonatomic, assign) UIScrollView* scrollView;
-@property (nonatomic, strong) __kindof UIView<SWRefreshView>* footerView;
-@property (nonatomic, strong) __kindof SWRefreshFooterViewModel* footerModel;
-
-@property (nonatomic) CGFloat footerOffset;  ///< insetBottom for footerView, positive offset make footerView move to bottom
-/** when content height below this threshold, footer will hide and disable. default 200 */
-@property (nonatomic, assign) CGFloat footerVisibleThreshold;
-/** when nomore state, hide footer */
-@property (nonatomic) bool hideWhenNoMore;
+/** return YES when calling setScrollViewTempInset; */
+- (BOOL)isSettingTempInset;
 
 @end

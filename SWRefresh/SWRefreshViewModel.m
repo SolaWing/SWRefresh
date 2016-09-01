@@ -11,15 +11,9 @@
 
 @interface SWRefreshViewModel ()
 
-@property (nonatomic, getter=isAnimating) BOOL animating;
-
 @end
 
 @implementation SWRefreshViewModel
-
--(void)dealloc {
-    self.scrollView = nil;
-}
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -34,73 +28,43 @@
 }
 
 #pragma mark - API
-- (void)beginRefreshing:(BOOL)animated {
-    return [self beginRefreshing:animated source:SWRefreshSourceUserToken];
+- (void)beginRefreshing {
+    [self beginRefreshing:SWRefreshSourceUserToken animated:YES];
 }
 
-- (void)beginRefreshing:(BOOL)animated source:(id)source{
+- (void)beginRefreshing:(id)source animated:(BOOL)animated {
     self.beginRefreshingSource = source;
-    __unsafe_unretained dispatch_block_t block = ^{
-        self.pullingPercent = 1.0;
-        if (self.state != SWRefreshStateRefreshing) {
+    if (self.state != SWRefreshStateRefreshing) {
+        // temp update hasAnimation
+        BOOL hasAnimation = _hasAnimation;
+        _hasAnimation = animated;
+        {
+            self.pullingPercent = 1.0;
             self.state = SWRefreshStateRefreshing;
             [self executeRefreshingCallback];
         }
-    };
-    if (animated) {
-        [UIView animateWithDuration:0.25 animations:block];
-    } else {
-        block();
+        _hasAnimation = hasAnimation;
     }
 }
 
-- (void)endRefreshing:(BOOL)animated {
-    return [self endRefreshingWithState:SWRefreshStateIdle animated:animated
-                                 reason:SWRefreshEndRefreshSuccessToken];
-}
-
-- (void)endRefreshing:(BOOL)animated reason:(id)reason {
-    return [self endRefreshingWithState:SWRefreshStateIdle animated:animated
-                                 reason:SWRefreshEndRefreshSuccessToken];
-}
-
-- (void)endRefreshingWithState:(SWRefreshState)state animated:(BOOL)animated reason:(id)reason {
-    __unsafe_unretained dispatch_block_t block = ^{
-        self.state = state;
-        self.pullingPercent = 0.0;
-    };
-
+- (void)endRefreshing { [self endRefreshing:SWRefreshEndRefreshSuccessToken state:SWRefreshStateIdle animated:YES]; }
+- (void)endRefreshingWithNoMoreData { [self endRefreshing:SWRefreshEndRefreshSuccessToken state:SWRefreshStateNoMoreData animated:YES]; }
+- (void)endRefreshing:(id)reason state:(SWRefreshState)state animated:(BOOL)animated {
     self.endRefreshingReason = reason;
 
-    if (animated) {
-        // when call -[UICollectionView reload] before endRefreshing,
-        // reload will also animated and cause flicker.
-        // so delay it
-        self.animating = YES;
-        id completeBlock = ^(BOOL finish){
-            self.animating = NO;
-        };
-        if ([_scrollView isKindOfClass:[UICollectionView class]]) {
-            dispatch_block_t strongBlock = [block copy];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01* NSEC_PER_SEC),
-                dispatch_get_main_queue(), ^
-            {
-                [UIView animateWithDuration:self.endRefreshingAnimationDuration delay:0
-                                    options:UIViewAnimationOptionBeginFromCurrentState
-                                 animations:strongBlock completion:completeBlock];
-            });
-        } else {
-            [UIView animateWithDuration:self.endRefreshingAnimationDuration delay:0
-                                options:UIViewAnimationOptionBeginFromCurrentState
-                             animations:block completion:completeBlock];
-        }
-    } else {
-        block();
+    // temp update hasAnimation
+    BOOL hasAnimation = _hasAnimation;
+    _hasAnimation = animated;
+    {
+        self.pullingPercent = 0.0;
+        self.state = state;
     }
+    _hasAnimation = hasAnimation;
 }
 
-- (BOOL)isRefreshing {
-    return self.state == SWRefreshStateRefreshing;
+- (void)reset {
+    if ([self isRefreshing]) { [self endRefreshing]; }
+    else { _state = SWRefreshStateIdle; }
 }
 
 - (void)executeRefreshingCallback {
@@ -119,68 +83,14 @@
     else { dispatch_async(dispatch_get_main_queue(), block); }
 }
 
+#pragma mark - property
 - (void)setRefreshingTarget:(id)target refreshingAction:(SEL)action {
     self.refreshTarget = target;
     self.refreshAction = action;
 }
 
-- (void)setScrollView:(UIScrollView *)scrollView {
-    if (scrollView != _scrollView) {
-        if (_scrollView) {
-            [self unbindScrollView:_scrollView];
-        }
-        _scrollView = scrollView;
-        if (_scrollView) {
-            [self bindScrollView:_scrollView];
-        }
-    }
-}
-
-- (void)setState:(SWRefreshState)state {
-    SWRefreshState old = self.state;
-    if (state == old) { return; }
-    _state = state;
-
-    // do additional state change work
-    [self changeFromState:old to:state];
-}
-
-static char TempInsetKey;
-- (void)setScrollViewTempInset:(UIEdgeInsets)inset {
-    UIScrollView* scrollView = self.scrollView;
-    if (scrollView) {
-        if ([self isSettingTempInset]) {
-            // sometimes KVO change inset
-            scrollView.contentInset = inset;
-        } else {
-            id value = @YES;
-            objc_setAssociatedObject(scrollView, &TempInsetKey, value, OBJC_ASSOCIATION_ASSIGN);
-            scrollView.contentInset = inset;
-            objc_setAssociatedObject(scrollView, &TempInsetKey, nil, OBJC_ASSOCIATION_ASSIGN);
-        }
-    }
-}
-
-- (BOOL)isSettingTempInset {
-    UIScrollView* scrollView = self.scrollView;
-    if (scrollView) {
-        return objc_getAssociatedObject(scrollView, &TempInsetKey) != nil;
-    }
-    return NO;
-}
-
-#pragma mark - property
-#define kAnimatingKey @"__animating"
-- (BOOL)isAnimating {
-    return [_userInfo[kAnimatingKey] boolValue];
-}
-
-- (void)setAnimating:(BOOL)animating {
-    if (animating) {
-        _userInfo[kAnimatingKey] = @YES;
-    } else {
-        [_userInfo removeObjectForKey:kAnimatingKey];
-    }
+- (BOOL)isRefreshing {
+    return self.state == SWRefreshStateRefreshing;
 }
 
 #define kBeginRefreshSourceKey @"__BeginRefreshSource"
@@ -208,53 +118,5 @@ static char TempInsetKey;
         _userInfo[kEndRefreshReasonKey] = endRefreshingReason;
     }
 }
-
-#define kEndRefreshingAnimationDurationKey @"__endRefreshAnimationDuration"
-- (NSTimeInterval)endRefreshingAnimationDuration {
-    id duration = _userInfo[kEndRefreshingAnimationDurationKey];
-    if (duration) { return [duration doubleValue]; }
-    return 0.25; // default value
-}
-
-- (void)setEndRefreshingAnimationDuration:(NSTimeInterval)endRefreshingAnimationDuration {
-    if (endRefreshingAnimationDuration == 0) {
-        [_userInfo removeObjectForKey:kEndRefreshingAnimationDurationKey];
-    } else {
-        _userInfo[kEndRefreshingAnimationDurationKey] = @(endRefreshingAnimationDuration);
-    }
-}
-
-#pragma mark - KVO
-- (void)bindScrollView:(UIScrollView*)scrollView {
-    _scrollViewOriginInsets = scrollView.contentInset;
-    NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
-    [scrollView addObserver:self forKeyPath:@"contentOffset" options:options context:@"contentOffset"];
-    [scrollView addObserver:self forKeyPath:@"contentInset" options:options context:@"contentInset"];
-}
-
-- (void)unbindScrollView:(UIScrollView*)scrollView {
-    [scrollView removeObserver:self forKeyPath:@"contentOffset"];
-    [scrollView removeObserver:self forKeyPath:@"contentInset"];
-}
-
-- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSString *,id> *)change context:(nullable void *)context {
-    if (@"contentOffset" == context) {
-        [self scrollViewContentOffsetDidChange:change];
-    } else if (@"contentInset" == context) {
-        // check if change temp inset
-        if (![self isSettingTempInset]) {
-            [self scrollViewContentInsetDidChange:change];
-        }
-    }
-}
-
-#pragma mark - Override方法
-- (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {}
-- (void)scrollViewContentInsetDidChange:(NSDictionary *)change {
-    UIEdgeInsets inset = [change[NSKeyValueChangeNewKey] UIEdgeInsetsValue];
-    self.scrollViewOriginInsets = inset;
-}
-
-- (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState {}
 
 @end

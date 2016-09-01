@@ -9,6 +9,24 @@
 #import <UIKit/UIKit.h>
 #import "SWRefreshViewModel.h"
 
+@protocol SWRefreshView
+
+@required
+@property (nonatomic, strong, nullable) SWRefreshViewModel* sourceViewModel;
+
+@optional
+/** return default headerViewModelClass. used when need to create one. */
++ (nonnull Class)defaultHeaderViewModelClass;
+/** return default footerViewModelClass. used when need to create one. */
++ (nonnull Class)defaultFooterViewModelClass;
+
+/** return default id<SWRefreshHeaderController> class. used when need to create one. */
++ (nonnull Class)defaultHeaderControllerClass;
+/** return default id<SWRefreshFooterController> class. used when need to create one. */
++ (nonnull Class)defaultFooterControllerClass;
+
+@end
+
 @protocol SWRefreshHeaderController;
 @protocol SWRefreshFooterController;
 

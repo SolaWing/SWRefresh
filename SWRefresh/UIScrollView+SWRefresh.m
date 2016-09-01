@@ -11,12 +11,12 @@
 
 @implementation UIScrollView (SWRefresh)
 
-- (id<SWRefreshHeaderController>)refreshHeader {
+- (SWRefreshController*)refreshHeader {
     return objc_getAssociatedObject(self, @selector(refreshHeader));
 }
 
-- (void)setRefreshHeader:(id<SWRefreshHeaderController>)refreshHeader {
-    id<SWRefreshHeaderController> oldHeader = self.refreshHeader;
+- (void)setRefreshHeader:(SWRefreshController*)refreshHeader {
+    SWRefreshController* oldHeader = self.refreshHeader;
     if (oldHeader != refreshHeader) {
         if (oldHeader) { oldHeader.scrollView = nil; }
         objc_setAssociatedObject(self, @selector(refreshHeader), refreshHeader, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -26,12 +26,12 @@
     }
 }
 
-- (id<SWRefreshFooterController>)refreshFooter {
+- (SWRefreshController*)refreshFooter {
     return objc_getAssociatedObject(self, @selector(refreshFooter));
 }
 
-- (void)setRefreshFooter:(id<SWRefreshFooterController>)refreshFooter {
-    id<SWRefreshFooterController> oldFooter = self.refreshFooter;
+- (void)setRefreshFooter:(SWRefreshController*)refreshFooter {
+    SWRefreshController* oldFooter = self.refreshFooter;
     if (oldFooter != refreshFooter) {
         if (oldFooter) { oldFooter.scrollView = nil; }
         objc_setAssociatedObject(self, @selector(refreshFooter), refreshFooter, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -42,16 +42,9 @@
 }
 
 #pragma mark - computed property
-- (SWRefreshHeaderViewModel *)refreshHeaderModel { return [self.refreshHeader headerModel]; }
-- (SWRefreshFooterViewModel *)refreshFooterModel { return [self.refreshFooter footerModel]; }
-- (UIView<SWRefreshView> *)refreshHeaderView { return [self.refreshHeader headerView]; }
-- (UIView<SWRefreshView> *)refreshFooterView { return [self.refreshFooter footerView]; }
-- (void)setRefreshHeaderModel:(__kindof SWRefreshHeaderViewModel *)refreshHeaderModel {
-    [self.refreshHeader setHeaderModel:refreshHeaderModel];
-}
-
-- (void)setRefreshFooterModel:(__kindof SWRefreshFooterViewModel *)refreshFooterModel {
-    [self.refreshFooter setFooterModel:refreshFooterModel];
-}
+- (id<SWRefreshViewModel>)refreshHeaderModel { return [(SWRefreshController*)self.refreshHeader model]; }
+- (id<SWRefreshViewModel>)refreshFooterModel { return [(SWRefreshController*)self.refreshFooter model]; }
+- (UIView<SWRefreshView> *)refreshHeaderView { return [[self.refreshHeader layouter] refreshView]; }
+- (UIView<SWRefreshView> *)refreshFooterView { return [[self.refreshFooter layouter] refreshView]; }
 
 @end

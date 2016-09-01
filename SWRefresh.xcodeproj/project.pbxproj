@@ -17,16 +17,17 @@
 		217499431C34D6EF00399768 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 217499411C34D6EF00399768 /* LaunchScreen.storyboard */; };
 		2174994A1C34D70100399768 /* libSWRefresh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 217499211C34D6D500399768 /* libSWRefresh.a */; };
 		2174994D1C34D74600399768 /* SWRefreshViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2174994C1C34D74600399768 /* SWRefreshViewModel.m */; };
-		217499501C35030000399768 /* SWRefreshHeaderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2174994F1C35030000399768 /* SWRefreshHeaderViewModel.m */; };
 		217499541C351EB000399768 /* SWRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 217499531C351EB000399768 /* SWRefreshView.m */; };
-		217499571C351FC600399768 /* SWRefreshFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 217499561C351FC600399768 /* SWRefreshFooterViewModel.m */; };
 		2175B1091C356E9F0089C6D3 /* UIScrollView+SWRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2175B1081C356E9F0089C6D3 /* UIScrollView+SWRefresh.m */; };
+		2185F82B1D75D32E0060E83E /* SWRefreshHeaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2185F8231D75D32E0060E83E /* SWRefreshHeaderController.m */; };
+		2185F82C1D75D32E0060E83E /* SWRefreshAutoFooterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2185F8251D75D32E0060E83E /* SWRefreshAutoFooterController.m */; };
+		2185F82D1D75D32E0060E83E /* SWRefreshBackFooterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2185F8261D75D32E0060E83E /* SWRefreshBackFooterController.m */; };
+		2185F82E1D75D32E0060E83E /* SWRefreshFooterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2185F8281D75D32E0060E83E /* SWRefreshFooterController.m */; };
+		2185F8311D75D6290060E83E /* SWRefreshLayouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2185F8301D75D6290060E83E /* SWRefreshLayouter.m */; };
 		218C3C541C39F5BE008C7AD4 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218C3C531C39F5BE008C7AD4 /* TableViewController.m */; };
 		218C3C5B1C39FCBC008C7AD4 /* SWRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 218C3C581C39FCBC008C7AD4 /* SWRefreshFooterView.m */; };
 		218C3C5C1C39FCBC008C7AD4 /* SWRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 218C3C5A1C39FCBC008C7AD4 /* SWRefreshHeaderView.m */; };
-		219483F61C39144100F4C27D /* SWRefreshBackFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 219483F51C39144100F4C27D /* SWRefreshBackFooterViewModel.m */; };
-		219483F91C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 219483F81C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m */; };
-		21E71BE91C96B2AD005E2D0C /* SWRefreshController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21E71BE81C96B2AD005E2D0C /* SWRefreshController.m */; };
+		21A967B91D6EF0D00058D9AE /* SWRefreshController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21A967B81D6EF0D00058D9AE /* SWRefreshController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,26 +86,28 @@
 		217499441C34D6EF00399768 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2174994B1C34D74600399768 /* SWRefreshViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshViewModel.h; sourceTree = "<group>"; };
 		2174994C1C34D74600399768 /* SWRefreshViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshViewModel.m; sourceTree = "<group>"; };
-		2174994E1C35030000399768 /* SWRefreshHeaderViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshHeaderViewModel.h; sourceTree = "<group>"; };
-		2174994F1C35030000399768 /* SWRefreshHeaderViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshHeaderViewModel.m; sourceTree = "<group>"; };
 		217499521C351EB000399768 /* SWRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshView.h; sourceTree = "<group>"; };
 		217499531C351EB000399768 /* SWRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshView.m; sourceTree = "<group>"; };
-		217499551C351FC600399768 /* SWRefreshFooterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshFooterViewModel.h; sourceTree = "<group>"; };
-		217499561C351FC600399768 /* SWRefreshFooterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshFooterViewModel.m; sourceTree = "<group>"; };
 		2175B1071C356E9F0089C6D3 /* UIScrollView+SWRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SWRefresh.h"; sourceTree = "<group>"; };
 		2175B1081C356E9F0089C6D3 /* UIScrollView+SWRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SWRefresh.m"; sourceTree = "<group>"; };
+		2185F8231D75D32E0060E83E /* SWRefreshHeaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshHeaderController.m; sourceTree = "<group>"; };
+		2185F8241D75D32E0060E83E /* SWRefreshHeaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshHeaderController.h; sourceTree = "<group>"; };
+		2185F8251D75D32E0060E83E /* SWRefreshAutoFooterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshAutoFooterController.m; sourceTree = "<group>"; };
+		2185F8261D75D32E0060E83E /* SWRefreshBackFooterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshBackFooterController.m; sourceTree = "<group>"; };
+		2185F8271D75D32E0060E83E /* SWRefreshAutoFooterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshAutoFooterController.h; sourceTree = "<group>"; };
+		2185F8281D75D32E0060E83E /* SWRefreshFooterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshFooterController.m; sourceTree = "<group>"; };
+		2185F8291D75D32E0060E83E /* SWRefreshFooterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshFooterController.h; sourceTree = "<group>"; };
+		2185F82A1D75D32E0060E83E /* SWRefreshBackFooterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshBackFooterController.h; sourceTree = "<group>"; };
+		2185F82F1D75D6290060E83E /* SWRefreshLayouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshLayouter.h; sourceTree = "<group>"; };
+		2185F8301D75D6290060E83E /* SWRefreshLayouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshLayouter.m; sourceTree = "<group>"; };
 		218C3C521C39F5BE008C7AD4 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		218C3C531C39F5BE008C7AD4 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		218C3C571C39FCBC008C7AD4 /* SWRefreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshFooterView.h; sourceTree = "<group>"; };
 		218C3C581C39FCBC008C7AD4 /* SWRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshFooterView.m; sourceTree = "<group>"; };
 		218C3C591C39FCBC008C7AD4 /* SWRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshHeaderView.h; sourceTree = "<group>"; };
 		218C3C5A1C39FCBC008C7AD4 /* SWRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshHeaderView.m; sourceTree = "<group>"; };
-		219483F41C39144100F4C27D /* SWRefreshBackFooterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshBackFooterViewModel.h; sourceTree = "<group>"; };
-		219483F51C39144100F4C27D /* SWRefreshBackFooterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshBackFooterViewModel.m; sourceTree = "<group>"; };
-		219483F71C39159B00F4C27D /* SWRefreshAutoFooterViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshAutoFooterViewModel.h; sourceTree = "<group>"; };
-		219483F81C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshAutoFooterViewModel.m; sourceTree = "<group>"; };
-		21E71BE71C96B2AD005E2D0C /* SWRefreshController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshController.h; sourceTree = "<group>"; };
-		21E71BE81C96B2AD005E2D0C /* SWRefreshController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshController.m; sourceTree = "<group>"; };
+		21A967B71D6EF0D00058D9AE /* SWRefreshController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRefreshController.h; sourceTree = "<group>"; };
+		21A967B81D6EF0D00058D9AE /* SWRefreshController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRefreshController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,14 +226,6 @@
 			children = (
 				2174994B1C34D74600399768 /* SWRefreshViewModel.h */,
 				2174994C1C34D74600399768 /* SWRefreshViewModel.m */,
-				2174994E1C35030000399768 /* SWRefreshHeaderViewModel.h */,
-				2174994F1C35030000399768 /* SWRefreshHeaderViewModel.m */,
-				217499551C351FC600399768 /* SWRefreshFooterViewModel.h */,
-				217499561C351FC600399768 /* SWRefreshFooterViewModel.m */,
-				219483F41C39144100F4C27D /* SWRefreshBackFooterViewModel.h */,
-				219483F51C39144100F4C27D /* SWRefreshBackFooterViewModel.m */,
-				219483F71C39159B00F4C27D /* SWRefreshAutoFooterViewModel.h */,
-				219483F81C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -240,6 +235,8 @@
 			children = (
 				217499521C351EB000399768 /* SWRefreshView.h */,
 				217499531C351EB000399768 /* SWRefreshView.m */,
+				2185F82F1D75D6290060E83E /* SWRefreshLayouter.h */,
+				2185F8301D75D6290060E83E /* SWRefreshLayouter.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -267,8 +264,16 @@
 		21E71BE61C96B1EA005E2D0C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				21E71BE71C96B2AD005E2D0C /* SWRefreshController.h */,
-				21E71BE81C96B2AD005E2D0C /* SWRefreshController.m */,
+				2185F8231D75D32E0060E83E /* SWRefreshHeaderController.m */,
+				2185F8241D75D32E0060E83E /* SWRefreshHeaderController.h */,
+				2185F8251D75D32E0060E83E /* SWRefreshAutoFooterController.m */,
+				2185F8261D75D32E0060E83E /* SWRefreshBackFooterController.m */,
+				2185F8271D75D32E0060E83E /* SWRefreshAutoFooterController.h */,
+				2185F8281D75D32E0060E83E /* SWRefreshFooterController.m */,
+				2185F8291D75D32E0060E83E /* SWRefreshFooterController.h */,
+				2185F82A1D75D32E0060E83E /* SWRefreshBackFooterController.h */,
+				21A967B71D6EF0D00058D9AE /* SWRefreshController.h */,
+				21A967B81D6EF0D00058D9AE /* SWRefreshController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -442,14 +447,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2185F8311D75D6290060E83E /* SWRefreshLayouter.m in Sources */,
 				2174994D1C34D74600399768 /* SWRefreshViewModel.m in Sources */,
-				21E71BE91C96B2AD005E2D0C /* SWRefreshController.m in Sources */,
-				217499571C351FC600399768 /* SWRefreshFooterViewModel.m in Sources */,
-				219483F91C39159B00F4C27D /* SWRefreshAutoFooterViewModel.m in Sources */,
-				219483F61C39144100F4C27D /* SWRefreshBackFooterViewModel.m in Sources */,
+				2185F82B1D75D32E0060E83E /* SWRefreshHeaderController.m in Sources */,
+				2185F82E1D75D32E0060E83E /* SWRefreshFooterController.m in Sources */,
+				21A967B91D6EF0D00058D9AE /* SWRefreshController.m in Sources */,
+				2185F82C1D75D32E0060E83E /* SWRefreshAutoFooterController.m in Sources */,
 				217499541C351EB000399768 /* SWRefreshView.m in Sources */,
-				217499501C35030000399768 /* SWRefreshHeaderViewModel.m in Sources */,
 				2175B1091C356E9F0089C6D3 /* UIScrollView+SWRefresh.m in Sources */,
+				2185F82D1D75D32E0060E83E /* SWRefreshBackFooterController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -690,6 +696,7 @@
 				216D45091CAE068900492F40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		216D45251CAE25E800492F40 /* Build configuration list for PBXNativeTarget "SWRefreshExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -698,6 +705,7 @@
 				216D45271CAE25E800492F40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2174991C1C34D6D500399768 /* Build configuration list for PBXProject "SWRefresh" */ = {
 			isa = XCConfigurationList;

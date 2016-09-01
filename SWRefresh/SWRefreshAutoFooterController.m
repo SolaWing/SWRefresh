@@ -1,15 +1,15 @@
 //
-//  SWRefreshAutoFooterViewModel.m
+//  SWRefreshAutoFooterController.m
 //  SWRefresh
 //
 //  Created by SolaWing on 16/1/3.
 //  Copyright © 2016年 SW. All rights reserved.
 //
 
-#import "SWRefreshAutoFooterViewModel.h"
+#import "SWRefreshAutoFooterController.h"
 
 #define kAutoRefreshMinInterval 0.5
-@implementation SWRefreshAutoFooterViewModel
+@implementation SWRefreshAutoFooterController
 
 - (void)initialize {
     [super initialize];
@@ -18,17 +18,17 @@
 
 - (void)setRefreshThreshold:(CGFloat)refreshThreshold {
     [super setRefreshThreshold:refreshThreshold];
-    // _refreshThreshold更大, 会造成回弹, 这种情况请用backFooterViewModel
+    // _refreshThreshold更大, 会造成回弹, 这种情况请用backFooterController
     if (_refreshThreshold > _bottomInset) {
         self.bottomInset = _refreshThreshold;
     }
 }
 
-static inline void scrollViewChangeBottomInset(SWRefreshViewModel* model, UIScrollView* scrollView, CGFloat deltaBottomInset) {
+static inline void scrollViewChangeBottomInset(SWRefreshController* model, UIScrollView* scrollView, CGFloat deltaBottomInset) {
     if (deltaBottomInset == 0) return;
     UIEdgeInsets inset = scrollView.contentInset;
     inset.bottom += deltaBottomInset;
-    // SWRefreshViewModel inner should always use setScrollViewTempInset, to avoid
+    // SWRefreshController inner should always use setScrollViewTempInset, to avoid
     // override scrollViewOriginInsets when already set a tempinset like top
     [model setScrollViewTempInset:inset];
 }

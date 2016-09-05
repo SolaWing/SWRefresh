@@ -39,16 +39,21 @@
 }
 
 - (void)beginRefreshing:(BOOL)animated source:(id)source{
+    if (_state == SWRefreshStateRefreshing) { return; }
+
     self.beginRefreshingSource = source;
     __unsafe_unretained dispatch_block_t block = ^{
         self.pullingPercent = 1.0;
-        if (self.state != SWRefreshStateRefreshing) {
-            self.state = SWRefreshStateRefreshing;
-            [self executeRefreshingCallback];
-        }
+        self.state = SWRefreshStateRefreshing;
+        [self executeRefreshingCallback];
     };
     if (animated) {
-        [UIView animateWithDuration:0.25 animations:block];
+        self.animating = YES;
+        [UIView animateWithDuration:self.beginRefreshingAnimationDuration delay:0
+                            options:UIViewAnimationOptionBeginFromCurrentState
+                         animations:block completion:^(BOOL finished){
+                             self.animating = NO;
+                         }];
     } else {
         block();
     }
@@ -193,6 +198,21 @@ static char TempInsetKey;
         [_userInfo removeObjectForKey:kBeginRefreshSourceKey];
     } else {
         _userInfo[kBeginRefreshSourceKey] = beginRefreshingSource;
+    }
+}
+
+#define kBeginRefreshingAnimationDurationKey @"__beginRefreshAnimationDuration"
+- (NSTimeInterval)beginRefreshingAnimationDuration {
+    id duration = _userInfo[kBeginRefreshingAnimationDurationKey];
+    if (duration) { return [duration doubleValue]; }
+    return 0.25; // default value
+}
+
+- (void)setBeginRefreshingAnimationDuration:(NSTimeInterval)beginRefreshingAnimationDuration {
+    if (beginRefreshingAnimationDuration == 0) {
+        [_userInfo removeObjectForKey:kBeginRefreshingAnimationDurationKey];
+    } else {
+        _userInfo[kBeginRefreshingAnimationDurationKey] = @(beginRefreshingAnimationDuration);
     }
 }
 

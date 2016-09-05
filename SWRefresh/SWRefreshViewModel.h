@@ -72,7 +72,8 @@ typedef void(^SWRefreshingBlock)(__kindof SWRefreshViewModel* _Nonnull viewModel
 @property (nonatomic, getter=isAnimating, readonly) BOOL animating;
 @property (nonatomic, strong, nullable) id beginRefreshingSource;
 @property (nonatomic, strong, nullable) id endRefreshingReason;
-/** customizable duration of end refreshing animation */
+/** customizable duration of animation */
+@property (nonatomic) NSTimeInterval beginRefreshingAnimationDuration;
 @property (nonatomic) NSTimeInterval endRefreshingAnimationDuration;
 
 

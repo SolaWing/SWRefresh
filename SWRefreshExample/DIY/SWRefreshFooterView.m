@@ -7,6 +7,7 @@
 //
 
 #import "SWRefreshFooterView.h"
+#import "SWRefreshAutoFooterViewModel.h"
 
 @interface SWRefreshFooterView ()
 
@@ -15,6 +16,8 @@
 @end
 
 @implementation SWRefreshFooterView
+
++ (Class)defaultFooterViewModelClass { return [SWRefreshAutoFooterViewModel class]; }
 
 - (nonnull instancetype)initWithFrame:(CGRect)frame {
     frame.size.height = 44;

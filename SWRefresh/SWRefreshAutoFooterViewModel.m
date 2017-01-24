@@ -9,7 +9,9 @@
 #import "SWRefreshAutoFooterViewModel.h"
 
 #define kAutoRefreshMinInterval 0.5
-@implementation SWRefreshAutoFooterViewModel
+@implementation SWRefreshAutoFooterViewModel {
+    __weak UIScrollView* _weakScrollView;
+}
 
 - (void)initialize {
     [super initialize];
@@ -44,12 +46,15 @@ static inline void scrollViewChangeBottomInset(SWRefreshViewModel* model, UIScro
 
 - (void)bindScrollView:(UIScrollView *)scrollView {
     [super bindScrollView:scrollView];
+    _weakScrollView = scrollView;
     scrollViewChangeBottomInset(self, scrollView, _bottomInset);
 }
 
 - (void)unbindScrollView:(UIScrollView *)scrollView {
     [super unbindScrollView:scrollView];
-    scrollViewChangeBottomInset(self, scrollView, -_bottomInset);
+    if (_weakScrollView) {
+        scrollViewChangeBottomInset(self, scrollView, -_bottomInset);
+    }
 }
 
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {

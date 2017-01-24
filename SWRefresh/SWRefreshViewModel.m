@@ -44,8 +44,10 @@
     self.beginRefreshingSource = source;
     __unsafe_unretained dispatch_block_t block = ^{
         self.pullingPercent = 1.0;
-        self.state = SWRefreshStateRefreshing;
-        [self executeRefreshingCallback];
+        if (self.state != SWRefreshStateRefreshing) {
+            self.state = SWRefreshStateRefreshing;
+            [self executeRefreshingCallback];
+        }
     };
     if (animated) {
         self.animating = YES;

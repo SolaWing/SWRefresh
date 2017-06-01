@@ -137,6 +137,7 @@
             [self unbindScrollView:_scrollView];
         }
         _scrollView = scrollView;
+        _weakScrollView = scrollView;
         if (_scrollView) {
             [self bindScrollView:_scrollView];
         }
@@ -154,7 +155,7 @@
 
 static char TempInsetKey;
 - (void)setScrollViewTempInset:(UIEdgeInsets)inset {
-    UIScrollView* scrollView = self.scrollView;
+    UIScrollView* scrollView = self.weakScrollView;
     if (scrollView) {
         if ([self isSettingTempInset]) {
             // sometimes KVO change inset
@@ -169,7 +170,7 @@ static char TempInsetKey;
 }
 
 - (BOOL)isSettingTempInset {
-    UIScrollView* scrollView = self.scrollView;
+    UIScrollView* scrollView = self.weakScrollView;
     if (scrollView) {
         return objc_getAssociatedObject(scrollView, &TempInsetKey) != nil;
     }
@@ -260,6 +261,7 @@ static char TempInsetKey;
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSString *,id> *)change context:(nullable void *)context {
+    if (!_weakScrollView) return;
     if (@"contentOffset" == context) {
         [self scrollViewContentOffsetDidChange:change];
     } else if (@"contentInset" == context) {

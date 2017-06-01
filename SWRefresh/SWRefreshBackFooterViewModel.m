@@ -62,6 +62,7 @@
 
 - (void)changeFromState:(SWRefreshState)oldState to:(SWRefreshState)newState {
     NSAssert([NSThread isMainThread], @"should change state in main thread!");
+    if (!self.weakScrollView) return;
 
     if (oldState == SWRefreshStateRefreshing) {
         // 恢复inset, 只更改bottom

@@ -10,7 +10,6 @@
 
 #define kAutoRefreshMinInterval 0.5
 @implementation SWRefreshAutoFooterViewModel {
-    __weak UIScrollView* _weakScrollView;
 }
 
 - (void)initialize {
@@ -37,7 +36,7 @@ static inline void scrollViewChangeBottomInset(SWRefreshViewModel* model, UIScro
 
 - (void)setBottomInset:(CGFloat)bottomInset {
     if (bottomInset != _bottomInset) {
-        if (self.scrollView) {
+        if (self.weakScrollView) {
             scrollViewChangeBottomInset(self, self.scrollView, bottomInset - _bottomInset);
         }
         _bottomInset = bottomInset;
@@ -46,13 +45,12 @@ static inline void scrollViewChangeBottomInset(SWRefreshViewModel* model, UIScro
 
 - (void)bindScrollView:(UIScrollView *)scrollView {
     [super bindScrollView:scrollView];
-    _weakScrollView = scrollView;
     scrollViewChangeBottomInset(self, scrollView, _bottomInset);
 }
 
 - (void)unbindScrollView:(UIScrollView *)scrollView {
     [super unbindScrollView:scrollView];
-    if (_weakScrollView) {
+    if (self.weakScrollView) {
         scrollViewChangeBottomInset(self, scrollView, -_bottomInset);
     }
 }
@@ -60,11 +58,14 @@ static inline void scrollViewChangeBottomInset(SWRefreshViewModel* model, UIScro
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {
     // use track, don't use drag.
     // drag became false lately, and may already bounces back, cause won't refreshing.
-    if ([self isRefreshing] || (self.pullingLength <= 0 &&
-        (!_refreshAutomatically ||
-         self.state == SWRefreshStateNoMoreData ||
-         self.scrollView.isTracking)))
-    { return; }
+    __unsafe_unretained bool(^canAutoRefresh)() = ^bool{
+        return (_refreshAutomatically &&
+                self.state != SWRefreshStateNoMoreData &&
+                !self.scrollView.isTracking);
+    };
+    if ([self isRefreshing] ||
+        (self.pullingLength <= 0 && !canAutoRefresh())
+    ) { return; }
 
     CGFloat pullingOffsetY = [self pullingOffsetY];
     CGFloat offsetY = self.scrollView.contentOffset.y;
@@ -76,10 +77,7 @@ static inline void scrollViewChangeBottomInset(SWRefreshViewModel* model, UIScro
 
         self.pullingPercent = (offsetY - happendOffsetY) / self.pullingLength;
 
-        if (!_refreshAutomatically ||
-            self.state == SWRefreshStateNoMoreData ||
-            self.scrollView.isTracking)
-        { return; }
+        if (!canAutoRefresh()) { return; }
     }
     if (pullingOffsetY < offsetY) {
         CGFloat bounceOffset = self.scrollView.contentSize.height

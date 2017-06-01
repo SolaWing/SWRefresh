@@ -31,6 +31,7 @@ typedef void(^SWRefreshingBlock)(__kindof SWRefreshViewModel* _Nonnull viewModel
 
 /** 使用assign确保deallocing时, scrollView仍然有效 */
 @property (nonatomic, assign, nullable) UIScrollView* scrollView;
+@property (nonatomic, weak, nullable, readonly) UIScrollView* weakScrollView;
 @property (nonatomic, assign) UIEdgeInsets scrollViewOriginInsets;
 
 #pragma mark 回调

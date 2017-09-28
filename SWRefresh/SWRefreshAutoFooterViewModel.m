@@ -58,6 +58,7 @@ static inline void scrollViewChangeBottomInset(SWRefreshViewModel* model, UIScro
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {
     // use track, don't use drag.
     // drag became false lately, and may already bounces back, cause won't refreshing.
+    // when slow drag, may no offset change when drag or tracking change.
     __unsafe_unretained bool(^canAutoRefresh)() = ^bool{
         return (_refreshAutomatically &&
                 self.state != SWRefreshStateNoMoreData &&

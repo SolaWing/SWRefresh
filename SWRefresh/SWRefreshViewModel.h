@@ -51,7 +51,7 @@ typedef void(^SWRefreshingBlock)(__kindof SWRefreshViewModel* _Nonnull viewModel
 /** 进入刷新状态, source可用来区分触发刷新来源, 该值可以通过beginRefreshingSource得到 */
 - (void)beginRefreshing:(BOOL)animated source:(nullable id)source;
 
-/** 结束刷新状态, 默认原因 SWRefreshEndRefreshSuccessToken */
+/** 结束刷新状态, 默认原因 SWRefreshEndRefreshSuccessToken. */
 - (void)endRefreshing:(BOOL)animated;
 #define SWRefreshEndRefreshSuccessToken nil
 /** 结束刷新状态并设置结束原因, reason可通过endRefreshingReason得到 */

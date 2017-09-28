@@ -72,38 +72,30 @@
 }
 
 - (void)endRefreshingWithState:(SWRefreshState)state animated:(BOOL)animated reason:(id)reason {
-    __unsafe_unretained dispatch_block_t block = ^{
-        self.state = state;
-        self.pullingPercent = 0.0;
-    };
-
-    self.endRefreshingReason = reason;
-
-    if (animated) {
-        // when call -[UICollectionView reload] before endRefreshing,
-        // reload will also animated and cause flicker.
-        // so delay it
-        self.animating = YES;
-        id completeBlock = ^(BOOL finish){
-            self.animating = NO;
+    // when call -[UICollectionView reload] before endRefreshing,
+    // reload will also animated and cause flicker.
+    // so delay it
+    // 
+    // UPDATE: if endRefreshing before reload, may change offset and cause load cell, which may cause crash when data is not consistent
+    //         so always delay it
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        __unsafe_unretained dispatch_block_t block = ^{
+            self.state = state;
+            self.pullingPercent = 0.0;
         };
-        if ([_scrollView isKindOfClass:[UICollectionView class]]) {
-            dispatch_block_t strongBlock = [block copy];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01* NSEC_PER_SEC),
-                dispatch_get_main_queue(), ^
-            {
-                [UIView animateWithDuration:self.endRefreshingAnimationDuration delay:0
-                                    options:UIViewAnimationOptionBeginFromCurrentState
-                                 animations:strongBlock completion:completeBlock];
-            });
-        } else {
+        self.endRefreshingReason = reason;
+        if (animated) {
+            self.animating = YES;
+            id completeBlock = ^(BOOL finish){
+                self.animating = NO;
+            };
             [UIView animateWithDuration:self.endRefreshingAnimationDuration delay:0
                                 options:UIViewAnimationOptionBeginFromCurrentState
                              animations:block completion:completeBlock];
+        } else {
+            block();
         }
-    } else {
-        block();
-    }
+    });
 }
 
 - (BOOL)isRefreshing {

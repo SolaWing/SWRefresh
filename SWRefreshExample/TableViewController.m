@@ -38,6 +38,10 @@
     SWRefreshingBlock block = ^(SWRefreshViewModel* model){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2* NSEC_PER_SEC),
             dispatch_get_main_queue(), ^{
+                if (weak_tableView.refreshFooterModel.state == SWRefreshStateNoMoreData) {
+                    [weak_self.dataSource removeAllObjects];
+                    [weak_tableView.refreshFooterModel resetNoMoreData];
+                }
                 for (int i = 0; i < 3; ++i) {
                     [weak_self.dataSource addObject:[NSDate date].description];
                 }
@@ -61,6 +65,8 @@
         });
     };
     tableView.refreshFooter = [SWRefreshFooterView footerWithRefreshingBlock:block];
+    // comment this to see nomore state
+    tableView.refreshFooter.hideWhenNoMore = true;
 
     tableView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0);
     CGRect frame = tableView.bounds;
@@ -72,6 +78,9 @@
     insetTopLabel.textAlignment = NSTextAlignmentCenter;
     [tableView addSubview:insetTopLabel];
 
+    // if (@available(iOS 11.0, *)) {
+    //     tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    // }
     tableView.refreshHeader.headerOffset = 50;
 }
 

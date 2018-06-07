@@ -19,8 +19,8 @@
 
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {
     CGPoint offset = self.scrollView.contentOffset;
-    UIEdgeInsets _scrollViewOriginInsets = self.scrollViewOriginInsets;
     if (self.state == SWRefreshStateRefreshing) {
+        UIEdgeInsets _scrollViewOriginInsets = self.scrollViewOriginInsets;
         if ( self.scrollView.dragging ) {
             // Keep header, inset 应该在 origin top inset 和 加上高度之前
             UIEdgeInsets inset = self.scrollView.contentInset;
@@ -34,13 +34,12 @@
         return;
     }
 
-    // inset可能改变, 改为父类监听修改
-    // _scrollViewOriginInsets = self.scrollView.contentInset;
-    // 刚好出现offset
-    CGFloat happendOffsetY = -_scrollViewOriginInsets.top;
-
+    CGFloat happendOffsetY = [self happendOffsetY];
     // 没达到临界点
-    if ( happendOffsetY < offset.y ) return;
+    if ( happendOffsetY < offset.y ) {
+        if (self.pullingPercent > 0) { self.pullingPercent = 0; }
+        return;
+    }
 
     CGFloat pullingPercent = (happendOffsetY - offset.y) / _refreshThreshold;
 
@@ -57,6 +56,20 @@
         [self beginRefreshing:YES];
     } else if (pullingPercent < 1) {
         self.pullingPercent = pullingPercent;
+    }
+}
+
+/// 刚好出现offset
+- (CGFloat)happendOffsetY {
+    // inset可能改变, 改为父类监听修改
+    // _scrollViewOriginInsets = self.scrollView.contentInset;
+    UIEdgeInsets _scrollViewOriginInsets = self.scrollViewOriginInsets;
+    if (@available(iOS 11.0, *)) {
+        UIEdgeInsets c = self.scrollView.contentInset;
+        UIEdgeInsets adjust = self.scrollView.adjustedContentInset;
+        return -_scrollViewOriginInsets.top - (adjust.top - c.top);
+    } else {
+        return -_scrollViewOriginInsets.top;
     }
 }
 

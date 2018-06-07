@@ -40,7 +40,10 @@
     CGFloat happendOffsetY = [self happendOffsetY];
 
     // 没达到临界点
-    if ( happendOffsetY > offset.y ) return;
+    if (happendOffsetY > offset.y) {
+        if (self.pullingPercent > 0) { self.pullingPercent = 0; }
+        return;
+    }
 
     CGFloat pullingPercent = (offset.y - happendOffsetY) / _refreshThreshold;
 

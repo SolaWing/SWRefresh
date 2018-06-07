@@ -90,13 +90,14 @@
 @implementation SWRefreshFooterController
 
 - (void)dealloc {
+    self.footerModel = nil;
     self.scrollView = nil;
 }
 
 + (instancetype)newWithFooterView:(UIView<SWRefreshView> *)footerView model:(SWRefreshFooterViewModel *)model {
     SWRefreshFooterController* ctrl = [self new];
     ctrl->_footerView = footerView;
-    ctrl->_footerModel = model;
+    ctrl.footerModel = model;
     return ctrl;
 }
 
@@ -121,7 +122,7 @@
             [self layoutFooterView];
         }
         if (_footerModel) {
-            _footerModel.scrollView = [self isFooterVisible]?_scrollView:nil;
+            _footerModel.scrollView = (_scrollView && [self isFooterVisible])?_scrollView:nil;
         }
     }
 }
@@ -130,10 +131,12 @@
     if (_footerModel != footerModel) {
         if (_footerModel) {
             _footerModel.scrollView = nil;
+            [_footerModel removeObserver:self forKeyPath:@"state"];
         }
         _footerModel = footerModel;
         if (_footerModel) {
             _footerModel.scrollView = [self isFooterVisible]?_scrollView:nil;
+            [_footerModel addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionOld context:@"state"];
         }
     }
 }
@@ -182,6 +185,12 @@
     if (@"contentSize" == context) {
         if (!CGSizeEqualToSize( [change[NSKeyValueChangeOldKey] CGSizeValue], _scrollView.contentSize )) {
             [self updateFooterViewFrame];
+            [self updateFooterVisible];
+        }
+    } else if (@"state" == context) {
+        SWRefreshState o = [change[NSKeyValueChangeOldKey] integerValue];
+        SWRefreshState n = _footerModel.state;
+        if (_hideWhenNoMore && o != n && (o == SWRefreshStateNoMoreData || n == SWRefreshStateNoMoreData) ) {
             [self updateFooterVisible];
         }
     }

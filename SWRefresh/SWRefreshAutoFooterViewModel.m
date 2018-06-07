@@ -64,23 +64,29 @@ static inline void scrollViewChangeBottomInset(SWRefreshViewModel* model, UIScro
                 self.state != SWRefreshStateNoMoreData &&
                 !self.scrollView.isTracking);
     };
-    if ([self isRefreshing] ||
-        (self.pullingLength <= 0 && !canAutoRefresh())
-    ) { return; }
+    if ( [self isRefreshing] ) { return; }
 
     CGFloat pullingOffsetY = [self pullingOffsetY];
     CGFloat offsetY = self.scrollView.contentOffset.y;
 
-    if (self.pullingLength > 0) { // 计算percent
-        // 开始改变pullingPercent的位置
-        CGFloat happendOffsetY = pullingOffsetY  - self.pullingLength;
-        if (offsetY < happendOffsetY) { return; }
-
-        self.pullingPercent = (offsetY - happendOffsetY) / self.pullingLength;
-
-        if (!canAutoRefresh()) { return; }
+    CGFloat pullingPercent = ^CGFloat{
+        if (self.pullingLength > 0) { // 计算percent
+            // 开始改变pullingPercent的位置
+            CGFloat happendOffsetY = pullingOffsetY  - self.pullingLength;
+            if (offsetY < happendOffsetY) {
+                return 0;
+            } else {
+                return (offsetY - happendOffsetY) / self.pullingLength;
+            }
+        } else {
+            return offsetY > pullingOffsetY ? 1 : 0;
+        }
+    }();
+    if (self.pullingPercent != pullingPercent) {
+        self.pullingPercent = pullingPercent;
     }
-    if (pullingOffsetY < offsetY) {
+
+    if (pullingOffsetY < offsetY && canAutoRefresh()) {
         CGFloat bounceOffset = self.scrollView.contentSize.height
             + self.scrollView.contentInset.bottom - self.scrollView.frame.size.height;
         if (offsetY <= bounceOffset) {
@@ -107,7 +113,13 @@ static inline void scrollViewChangeBottomInset(SWRefreshViewModel* model, UIScro
 }
 
 - (CGFloat)pullingOffsetY {
-    UIEdgeInsets inset = self.scrollView.contentInset;
+    UIEdgeInsets inset = ^{
+        if (@available(iOS 11.0, *)) {
+            return self.scrollView.adjustedContentInset;
+        } else {
+            return self.scrollView.contentInset;
+        }
+    }();
     // 自动触发点在刚显示view, 加上偏移值
     CGFloat bounceOffset = self.scrollView.contentSize.height
         + inset.bottom - self.scrollView.frame.size.height;
